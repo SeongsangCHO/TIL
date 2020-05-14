@@ -9,6 +9,8 @@
 
 => 각 어노테이션의 의미에 대해 주의하며 학습 @
 
+
+
 ### @Controller, @RequestMapping
 
 - SampleController을 작성해보자
@@ -24,7 +26,9 @@ public class SampleController {
 
 작성된 해당 클래스는 자동으로 스프링의 Bean으로 등록이 된다. 무엇때문에?
 
-servlet-context.xml
+
+
+바로 servlet-context.xml의 태그 때문에 등록이 되는 것.
 
 ```xml
 <context:component-scan base-package="org.zerock.controller" />
@@ -35,6 +39,10 @@ servlet-context.xml
 ![스프링관리파일](https://user-images.githubusercontent.com/55486644/81806673-c64f4a80-9557-11ea-892e-24157d16cc39.JPG)
 
 스프링이 관리해주는 파일은 옆에 S라고 추가된다.
+
+
+
+
 
 @RequestMapping
 
@@ -48,11 +56,15 @@ servlet-context.xml
 
 
 
+
+
 ## Controller의 파라미터 수집
 
 클라이언트의 요청에 필요한 데이터를 추출하고, VO 또는 DTO로 변환하는 파라미터 수집 작업! 스프링 MVC는 이를 자동으로 처리해줌 ! => RequestParam 어노테이션으로!
 
 매번 request.getParameter()을 사용하지 않아도 됨.
+
+
 
 - org.zerock.domain ( SampleDTO.java )생성
 
@@ -64,6 +76,8 @@ public class SampleDTO {
 }
 
 ```
+
+
 
 - HomeController
 
@@ -86,6 +100,8 @@ public class HomeController {
 ```
 
 INFO : org.zerock.controller.HomeController - SampleDTO(name=seongsang, age=10)
+
+
 
 배열, 배열리스트, 객체리스트 처리
 
@@ -111,9 +127,17 @@ INFO : org.zerock.controller.HomeController - SampleDTO(name=seongsang, age=10)
 
 http://localhost:8090/sample/ex02List?ids=111&ids=222&ids=333 를 브라우저에 요청하면 각 배열원소를 받을 수 있다.
 
+
+
+
+
 @RequestParam
 
 - Controller 메소드의 파라미터와 웹 요청 파라미터를 매핑하기 위한 어노테이션이다. 웹에서 ids=111을 요청하면, Controller에서 ids를 받아 log에 출력시킨다.
+
+
+
+
 
 객체리스트
 
@@ -134,6 +158,10 @@ public class SampleDTOList {
 sample/ex02Bean?list%5B0%5D.name=aaa&list%5B2%5D.name=bbb
 
 해당 URL호출시 객체는 3개 생성되고, 각 객체에 대한 정보 출력이 됨.
+
+
+
+
 
 
 
@@ -159,6 +187,8 @@ public class TodoDTO {
 }
 ```
 
+
+
 이를 처리할 initBinder을 이용하는 메소드 작성한다
 
 ```java
@@ -177,6 +207,8 @@ public class TodoDTO {
 
 http://localhost:8090/sample/ex03?title=test&dueData=2020-05-12 ->![initBinder](https://user-images.githubusercontent.com/55486644/81880523-aefc7580-95c8-11ea-9e35-4de9152b6997.JPG)
 
+
+
 또는, @DateTimeFormat을 이용해 변환할 수 있다. 해당 경우엔 @InitBinder이 필요 없다. 형식만 맞으면 변환된다.
 
 ```java
@@ -189,6 +221,8 @@ public class TodoDTO {
 }
 
 ```
+
+
 
 
 
