@@ -126,7 +126,7 @@
 
 #### maven-compiler-plugin 1.8로 수정
 
-#### Build Path에, Add extenal jars, ojdbc 추가
+#### Build Path에, Add extenal jars, ojdbc 추가 -> **중요** Deployment Assembly에도 꼭 추가!
 
 #### 마지막으로, Maven Update
 
@@ -136,7 +136,7 @@
 
 ## 전체 pom.xml
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
