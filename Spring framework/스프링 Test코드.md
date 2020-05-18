@@ -126,3 +126,75 @@ public class TimeMapperTests {
 
 ```
 
+
+
+### CRUD Test
+
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@Log4j
+public class BoardMapperTests {
+	
+	@Setter(onMethod_ = @Autowired)
+	private BoardMapper mapper;//BoardMapperTest는 BoardMapper인터페이스의 구현체를 주입 받는다.
+	
+	@Test
+	public void testGetList() {
+		mapper.getList().forEach(board -> log.info(board));
+	}
+	
+	
+	@Test
+	public void testInsert() {
+		
+		BoardVO board = new BoardVO();
+		board.setTitle("새로 작성하는 글");
+		board.setContent("새로 작성 내용");
+		board.setWriter("newbie");
+		
+		mapper.insert(board);
+		
+		log.info(board); // bno가 null로 출력된다.
+	}
+	
+	@Test
+	public void testInsertSelectKey() {
+		
+		BoardVO board = new BoardVO();
+		board.setTitle("새로 작성하는 글");
+		board.setContent("새로 작성 내용");
+		board.setWriter("newbie");
+		
+		mapper.insertSelectKey(board);
+		
+		log.info(board); // bno=25가 결과로 나온다. 이는 시퀀스 값으로 환경마다 다른 값이 나옴(중복 없는 값을 위함)
+	}
+	
+	@Test
+	public void testRead() {
+		BoardVO board = mapper.read(5L);
+		
+		log.info("read Test : "+ board);
+	}
+	
+	@Test
+	public void testDelete() {
+		log.info("DELETE COUNT: "+ mapper.delete(3L));
+	}
+	
+	@Test
+	public void testUpdate() {
+		BoardVO board = new BoardVO();
+		board.setBno(1L);
+		board.setTitle("수정된 제목");
+		board.setContent("수정된 내용");
+		board.setWriter("user01");
+		
+		int count = mapper.update(board);
+		log.info("UPDATE COUNT: " + count);	
+	}
+}
+
+```
+
