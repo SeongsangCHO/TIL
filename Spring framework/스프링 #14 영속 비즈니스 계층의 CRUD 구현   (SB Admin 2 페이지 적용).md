@@ -246,12 +246,203 @@ No primary or default constructor found for interface java.util.List
 
 **JSP에서 데이터를 계속 불러오지 못한 이슈가 발생했었는데 DB에서 데이터를 추가한 후 COMMIT을 하지 않아서 list가 비어있는 상태였다. 테이블을 삭제한 후 다시 데이터를 추가시키고 난 다음 COMMIT 과정을 수행하니 해결할 수 있었다.**
 
-
-
-![image-20200519011427762](C:\Users\조성상\AppData\Roaming\Typora\typora-user-images\image-20200519011427762.png)
+![게시글 화면처리](https://user-images.githubusercontent.com/55486644/82236115-9c8a8f00-996e-11ea-9b17-dc82852f0f8a.JPG)
 
 최종 결과물
 
 
 
 해당 템플릿은 페이징처리를 지원한다. 따라서 이를 제거하고 다시 구현할 예정이다.
+
+
+
+
+
+---
+
+#### 등록 입력 페이지, 등록처리
+
+
+
+데이터를 입력할 register 페이지를 작성한다.
+
+
+
+#### Controller
+
+먼저 입력 form을 보여주기 위한 GET방식의 메소드를 작성한다. 리턴타입이 void이면 명시된 url의 페이지를 출력해준다.
+
+```java
+@GetMapping("/register")
+	public void register() {
+	}
+	
+```
+
+
+
+JSP에서 작성한 데이터를 controller에 전달하고, 연동된 DB까지 전달하여 저장하는 로직을 구현한다.
+
+그렇기 위해선 GET과 POST방식에 대해서 이해하는 것이 필요하다.
+
+
+
+http패킷은 헤더와 바디로 구성되어있다. 헤더에는 클라이언트, 브라우저 정보 그리고 URL등의 정보가 있다.
+
+바디는 보통 비어있는데 특정 데이터를 담아 서버에게 요청보내는 용도로 사용한다. GET, POST는 HTTP메소드로 서버에 데이터를 요청하기 위해 사용한다.
+
+
+
+#### GET, POST
+
+- 서버에 요청하는 메소드
+- 서버에 데이터를 보내는 것이라고 생각한다.
+
+
+
+**GET**
+
+- 클라이언트가 요청한 데이터를 URL뒤에 붙여 보낸다.
+- 헤더에 데이터를 포함하여 전송한다.
+- 전송길이에 제한이 있다.
+- ? 마크는 URL의 끝을 알리며, 데이터 표현의 시작점이다.
+- 데이터는 Key, value로 이루어져있고 2개이상을 보낼 때, &로 구분지어진다
+- Body는 빈 상태이다.
+- 다른 사람이 확인할 수 있다.
+
+예시
+
+```java
+www.example.com?id=mommoo&pass=1234
+
+출처: https://mommoo.tistory.com/60 [개발자로 홀로 서기]
+```
+
+
+
+#### POST
+
+- 데이터 전송을 기반으로 한 요청 메소드
+- URL에 붙이지 않고 BODY에다 데이터를 넣어 보낸다.
+
+
+
+따라서 View를 출력하기 위해 GET방식의 메소드를 사용해 화면을 뿌려주고, 데이터 전달을 위해서 POST방식의 메소드를 구현한다. 현재 제목, 내용 그리고 작성자의 데이터를 View에서 서버에 전달한다.
+
+전달 후 페이지는 board/register에서 board/list로 이동할 것이고 이때 redirect을 이용한다.
+
+
+
+**그러나** Redirect 방식은 GET방식이라 데이터 전송에 적절하지 않다.
+
+해당 방법으로 데이터를 전달할 수 있을까?
+
+
+
+스프링이 제공하는 RedirectAttributes클래스를 사용하면 된다.
+
+해당 클래스는 리다이렉트가 발생하기 이전에 모든 플래시속성을 **세션**에 복사한다.
+
+리다이렉트 이후 저장된 플래시 속성을 모델로 이동시킨다.
+
+addFlashAttirbutes()메소드는 위의 역할을 하는 메소드이며, 리다이렉트 이후 소멸한다.
+
+
+
+그렇다면 POST방식으로 Controller에서 데이터를 받아와서(form태그에서 데이터를 받을 때 각 속성의 name은 전달받을 객체의 멤버변수의 이름과 일치해야한다. BoardVO의 title, content, writer 등) 
+
+service의 register메소드로 등록(insert)을 처리한 다음, 해당 객체(Board)의 PK키(Bno)에 일치하는 객체를 Redirect하기전에 addFlashAttribute메소드를 통해 View에 전달하여, Redirect해서 호출된 list메소드에서 getList()를 통해 DB에 저장된 게시글 목록을 출력한다.
+
+
+
+#### Redirect를 사용하는 이유
+
+등록, 수정, 삭제작업을 처리하고 동일 내용을 할 수 없더록 하기 위해서 URL이동하는 방식
+
+해당 수행의 결과를 바로알 수 있도록 <div>를 이용하는 모달창을 사용한다.(jsp에서 alert와 비슷한 것 같음)
+
+
+
+```jsp
+<script type="text/javascript">
+$(document).ready(function)(){
+	var result='<c:out value="${result}"/>';
+});
+</script>
+```
+
+
+
+**여기서 bno를 받기 위해서 insertSelectKey를 사용해야한다** -> 입력하기전 특정 키 값을 가져온 다음, 그 값을 이용해서 처리하는 방식.
+
+==> Bno가 2씩 증가하는 이유가 여기있는 것 같음. => 특정 키 값을 불러올 때, nextval을 사용하고, values에도 nextval을 쓰기때문에 2번호출하므로 2씩 증가 => 수정
+
+```xml
+<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			select seq_board.nextval from dual			
+		</selectKey>
+	
+		insert into tbl_board(bno, title, content, writer)
+		values(seq_board.nextval, #{title},#{content} ,#{writer})<!-- values의 nextval 부분을 #{bno}로 수정하여 해결-->
+	</insert>
+```
+
+
+
+
+
+#### 목록에서 버튼으로 이동하기
+
+register화면으로 이동하는 버튼을 생성한다.
+
+list.jsp에서 버튼을 추가하고 하단에 버튼의 기능을하는 스크립트를 추가한다.
+
+```jsp
+ <div class="panel-heading">
+	 Board List Page
+<Button id='regBtn' type="button" class="btn btn-xs pull-right">Register
+ New Board</Button>                     
+</div>
+<!-- ...in script -->
+	$("#regBtn").on("click", function(){
+				self.location="/board/register";
+			});
+```
+
+
+
+
+
+#### 조회페이지와 이동
+
+페이지링크를 통해 "GET"방식으로 특정 번호 게시물을 조회할 수 있는 기능을 작성한다.
+
+mapper의 get메소드는 mapper.xml에 작성되어있다. =select * , 즉 모든 데이터를 DB에서 가져와 BoardVO객체로 반환한다.
+
+
+
+
+
+#### 추가해야할 부분
+
+게시글 작성시 어느 하나라도 데이터가 null로 submit될때 alert수행하고, null인 input박스로 포커싱하도록 추가하기
+
+writer는 세션으로 자동으로 아이디 받아오도록 수정하기
+
+
+
+#### ??
+
+register메소드에서 addFlashAttribute를 작성하는 이유는 뭘까?
+
+이미 View에서 받아온 데이터를 register하여 DB에 저장되어있는 상태인데 redirect 호출전 View쪽으로 list라는 이름의 객체로 전달해도 사용하지 않는데 말이다.
+
+redirect하기전에 register화면에서 list객체를 사용할 일이 있다면 작성해주어도 상관없을텐데 말이다. ?!?
+
+=>바로 뒷장에 내용이 나온다 -ㅅ-
+
+Modal창에 데이터를 이용하기 위해서
+
+해당 코드에서 작성된 글의 PK(bno)를 list객체로 전달하는데, modal창에서 이를 사용하기 때문이다.
+
