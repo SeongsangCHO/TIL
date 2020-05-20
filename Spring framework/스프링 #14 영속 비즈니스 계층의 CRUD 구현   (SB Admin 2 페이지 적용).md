@@ -412,17 +412,180 @@ list.jsp에서 버튼을 추가하고 하단에 버튼의 기능을하는 스크
 
 
 
-
+---
 
 #### 조회페이지와 이동
 
-페이지링크를 통해 "GET"방식으로 특정 번호 게시물을 조회할 수 있는 기능을 작성한다.
+- 페이지링크를 통해 "GET"방식으로 특정 번호 게시물을 조회할 수 있는 기능을 작성한다.
 
-mapper의 get메소드는 mapper.xml에 작성되어있다. =select * , 즉 모든 데이터를 DB에서 가져와 BoardVO객체로 반환한다.
-
-
+mapper의 get메소드는 mapper.xml에 작성되어있다. = select * , 즉 모든 데이터를 DB에서 가져와 BoardVO객체로 반환한다.
 
 
+
+```java
+
+
+	@GetMapping("/get")
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		log.info("/get......");
+		model.addAttribute("board", service.get(bno));
+	}
+
+
+```
+
+파라미터로 전달한 'bno'값을 가진 BoardVO객체를 controller에서 받아와, model객체에 전달한다. 전달한 BoardVO객체를 get.jsp에서 받아서 이에 해당하는 값들을 조회할 수 있도록 한다.
+
+
+
+JSP
+
+```jsp
+<button data-oper='modify' class="btn btn-default" onclick="location.href='/board/modify/?bno=<c:out value="${board.bno }"/>'">
+								Modify
+							</button>
+							<button data-oper='list' class="btn btn-default" onclick="location.href='/board/list'">
+							List</button>
+```
+
+ 
+
+- data - * : 데이터속성. 태그에 데이터를 저장할 수 있는 속성이다. *에는 원하는 name을 붙여주면 된다.
+
+
+
+
+
+#### 목록(list)페이지에서 글 조회
+
+a 태그를 통해 위 파트에서 진행한 get의 URL로 링크시킨다.
+
+```jsp
+	<td><a target='_blank' href='/board/get?bno=<c:out value="${board.bno }"/>'>
+                                   			<c:out value="${board.title }"/></a></td>
+                                
+```
+
+같은 페이지로의 이동이 아닌 새창을 통한다면 <a>태그의 속성인 target='_blank'를 지정하면 된다.
+
+
+
+#### 뒤로가기의 문제 (스크립트에 대한 학습필요. 정리만 해둠)
+
+1. 게시글 등록
+2. 목록페이지로 redirect되면서 모달창 생성
+3. 게시글 조회
+4. 조회페이지에서 뒤로가기시 모달창 재 생성
+
+
+
+window history는 스택구조로 동작한다.
+
+여기서 O표시는 모달창이 필요없다는 표시로 한다.
+
+1. board/list(O)   목록페이지 조회
+2. board/list(O) , board/register 등록페이지 이동
+3. board/list(O), board/register , board/list 등록 후 list로 이동 (스택 상단에서 모달창 생성 후 모달창에 표시를 해두어야한다.)
+4. board/list(O), board/register, board/list(O) board/register - 다른 글 등록
+
+3번에서, 스택의 상단인 list페이지에 모달창이 필요없다는 표시를 해두어야 모달창이 다시나오는 오류를 막을 수 있다.
+
+
+
+window의 history객체를 이용해 해당 문제를 해결한다.
+
+
+
+list.jsp
+
+```jsp
+	
+var result='<c:out value="${resultBno}"/>';
+//resultBno 데이터를 controller의 register메소드에서 받아와 result에 매핑시킨다.
+			
+checkModal(result);
+//매핑시킨 result를 가지고 chekModal메소드를 호출한다.
+			
+history.replaceState({}, null, null);
+			
+			
+			
+function checkModal(result){
+//result가 null이면, 그대로 종료하고 그렇지 않으면 modal창을 생성한다.
+//함수호출순서상 checkModal이 먼저 수행되게 되는데, 첫번째 모달창을 출력하고  history.replaceState()를 호출하게 된다.
+			//그렇다면 그 다음부터는 뒤로가기를 눌러도 이미 현재 창에서는 모달이 출력되었다는 표시(history.state)가 되었으므로 모달이 나오지 않는다.
+				if(result === '' || history.state)
+				{
+					return ;
+				}
+				
+```
+
+
+
+
+
+
+
+---
+
+### 게시글 수정 / 삭제 처리
+
+
+
+#### 수정/삭제 페이지로 이동
+
+조회(get)페이지랑 같은 방법을 사용한다.
+
+
+
+GetMapping으로 modify.jsp를 보여줄 수 있는 부분을 추가하고 PostMapping으로 수정된 데이터들을 form으로 묶어 전달하는 부분을 구현한다.
+
+```java
+
+	@PostMapping("/modify")
+	public String modify(BoardVO board, RedirectAttributes rttr)
+	{
+		boolean flag;
+		
+		log.info("modified..........");
+		flag = service.modify(board);
+		
+		if(!flag) 
+		{
+			return "redirect:/board/modify";
+		}
+		rttr.addFlashAttribute("resultBno", board.getBno());
+		rttr.addFlashAttribute("separator", "modify");
+		return "redirect:/board/list";
+	}
+```
+
+separator의 문자열을 따로 추가하여 수정/삭제/등록될때마다 출력되는 문구를 구분짓게 구현했다.
+
+
+
+삭제부분
+
+```java
+@PostMapping("/remove")
+	public String remove(@RequestParam ("bno") Long bno, RedirectAttributes rttr)
+	{
+		log.info("remove........ bno : " + bno);
+		service.remove(bno);
+		rttr.addFlashAttribute("resultBno", bno);
+		rttr.addFlashAttribute("separator", "remove");
+		return "redirect:/board/list";
+	}
+```
+
+
+
+
+
+
+
+---
 
 #### 추가해야할 부분
 
