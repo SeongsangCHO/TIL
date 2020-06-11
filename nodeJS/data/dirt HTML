@@ -1,0 +1,5 @@
+dirty
+<script>
+alert('hi');
+</script>
+end
