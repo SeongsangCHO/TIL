@@ -3,13 +3,13 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '111111',
-  database : 'opentutorials'
+  password : '1234',
+  database : 'mydb'
 });
 
 connection.connect();
 
-connection.query('SELETE * FROM topic', function(err, results, fields) {
+connection.query('SELECT * FROM program_table', function(err, results, fields) {
   if (err) {
     console.log(err);
   }
