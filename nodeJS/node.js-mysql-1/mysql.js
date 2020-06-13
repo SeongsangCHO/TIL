@@ -4,12 +4,12 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '1234',
-  database : 'mydb'
+  database : 'nodejs'
 });
 
 connection.connect();
 
-connection.query('SELECT * FROM program_table', function(err, results, fields) {
+connection.query('SELECT * FROM my_table', function(err, results, fields) {
   if (err) {
     console.log(err);
   }
