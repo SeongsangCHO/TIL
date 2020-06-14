@@ -5,7 +5,7 @@ var qs = require('querystring');
 var bodyParser = require('body-parser');
 var db = require('./config/db_conn');
 var adminRouter = require('./routes/admin');
-var
+
 app.set('view engine', 'ejs');
 
 app.use('/admin', adminRouter);
