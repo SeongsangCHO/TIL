@@ -57,6 +57,27 @@ router.get('/delete', function (req, res) {
 
 router.get('/update', function (req, res) {
     var updateId = url.parse(req.url, true).query.id;
-   res.render('/admin/get')
+   res.render('updatePost',{updateId : updateId});
+})
+
+router.post('/update', function (req,res) {
+    var reqBody = req.body;
+    var updateData = [
+        reqBody.program_title, reqBody.program_ageTarget,
+        reqBody.program_Benefits, reqBody.program_languages,
+        reqBody.program_content, reqBody.program_id];
+    var sql = 'UPDATE program_table ' +
+                'SET program_title = ?,' +
+                'program_ageTarget = ?,' +
+                'program_Benefits = ?,' +
+                'program_languages = ?,' +
+                'program_content =?' +
+                'where program_id = ?';
+    db.query(sql, updateData, function (err, results) {
+        if(err)
+            console.log(err);
+        console.log(results);
+    });
+    res.redirect('/admin/list');
 })
 module.exports = router;
