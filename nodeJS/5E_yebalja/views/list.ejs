@@ -35,16 +35,18 @@
             <% program_list.forEach(function(lists) { %>
                 <tr>
                     <td><%- lists.program_id%></td>
-                    <td><a href="/admin/update?id=<%- lists.program_id %>"><%- lists.program_title%></a></td>
+                    <td><%- lists.program_title%></td>
                     <td><%- lists.program_ageTarget%></td>
                     <td><%- lists.program_Benefits%></td>
                     <td><%- lists.program_languages%></td>
                     <td><%- lists.program_content%></td>
+                    <td><a href="/admin/update?id=<%- lists.program_id %>">update</a></td>
                     <td><a href="/admin/delete?id=<%- lists.program_id %>">delete</a></td>
                 </tr>
             <% }) %>
             </tbody>
         </table>
+        <a href="/admin/register">register</a>
     </div>
 
 

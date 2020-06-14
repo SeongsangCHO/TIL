@@ -9,14 +9,14 @@ router.use(bodyParser.urlencoded({ extended: true}));
 var db = require('../config/db_conn');
 // admin page input date
 
-router.get('/', function (req, res) {
+router.get('/register', function (req, res) {
     res.render('admin');
 });
 
 
 
 // data insert from admin page
-router.post('/', function (req, res) {
+router.post('/register', function (req, res) {
     var reqBody = req.body;
     var insertData = [
         reqBody.program_title, reqBody.program_ageTarget,
