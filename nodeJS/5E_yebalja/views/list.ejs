@@ -1,0 +1,54 @@
+
+<%- include ("./header") %>
+<h1><%- program_list[0].program_title %></h1>
+<body>
+
+    <style>
+        .wrapper{
+            background-color: black;
+        }
+        .list_table{
+            border: 1px solid #000000;
+
+        }
+        th, td{
+            border: 1px solid #000000;
+        }
+    </style>
+
+    <div class="wrapper">
+        hello
+    </div>
+
+    <div>
+        <table class="list_table">
+            <thead>
+                <th>id</th>
+                <th>title</th>
+                <th>age_target</th>
+                <th>benefits</th>
+                <th>languages</th>
+                <th>content</th>
+            </thead>
+
+            <tbody>
+            <% program_list.forEach(function(lists) { %>
+                <tr>
+                    <td><%- lists.program_id%></td>
+                    <td><a href="/admin/update?id=<%- lists.program_id %>"><%- lists.program_title%></a></td>
+                    <td><%- lists.program_ageTarget%></td>
+                    <td><%- lists.program_Benefits%></td>
+                    <td><%- lists.program_languages%></td>
+                    <td><%- lists.program_content%></td>
+                    <td><a href="/admin/delete?id=<%- lists.program_id %>">delete</a></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+<%- include ("./footer") %>
