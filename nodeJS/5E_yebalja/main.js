@@ -8,13 +8,20 @@ var adminRouter = require('./routes/admin');
 
 app.set('view engine', 'ejs');
 
+app.use(express.static('public'));
+
 app.use('/admin', adminRouter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 // main page list print
 app.get('/', function (req, res) {
-    res.render('main');
+    var sql = 'SELECT * FROM program_table';
+    db.query(sql, function (err, results) {
+        if (err)
+            console.log(err);
+        res.render('main', {program_list: results});
+    });
 });
 
 

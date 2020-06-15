@@ -1,6 +1,74 @@
 
 <%- include ("./header") %>
+
+
+<style>
+    html, body{
+        width: 100%;
+        height: 100%;
+        margin: 0 0 0 0;
+
+    }
+    .program_details{
+        text-align: center;
+    }
+    th,td{
+        padding: 15px;
+        border: 3px solid #333333;
+    }
+</style>
+
+
 <body>
     <h1>HELLO</h1>
+
+    <div style="background-color: antiquewhite; height: 400px;">
+        제목 / 1 - 12월 /
+    </div>
+
+    <div>
+
+        <table class="program_details">
+            <thead>
+                <tr>
+                    <th>-</th>
+                    <% program_list.forEach(function (lists) { %>
+                        <th> <%- lists.program_title%></th>
+                    <% }) %>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>내용</td>
+                    <% program_list.forEach(function (lists) { %>
+                        <td><%- lists.program_content%></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <td>지원자격</td>
+                    <% program_list.forEach(function (lists) { %>
+                        <td><%- lists.program_ageTarget%></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <td>언어</td>
+                    <% program_list.forEach(function (lists) { %>
+                        <td><%- lists.program_languages%></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <td>혜택</td>
+                    <% program_list.forEach(function (lists) { %>
+                        <td><%- lists.program_Benefits%></td>
+                    <% }) %>
+               </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    alert('hello');
+</script>
 
 <%- include ("./footer") %>
