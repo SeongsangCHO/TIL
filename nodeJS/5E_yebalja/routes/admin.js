@@ -39,10 +39,10 @@ router.get('/list', function (req, res) {
     db.query(sql, function (err, results) {
         if(err)
             console.log(err);
+
         res.render('list', {program_list : results});
     })
 });
-
 
 // get으로 qs받아오기, http://blog.naver.com/agapeuni/221064805723
 router.get('/delete', function (req, res) {
