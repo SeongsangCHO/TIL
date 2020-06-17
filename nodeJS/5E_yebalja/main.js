@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 var qs = require('querystring');
 var bodyParser = require('body-parser');
 var db = require('./config/db_conn');
@@ -8,7 +8,9 @@ var adminRouter = require('./routes/admin');
 
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
+
+// app.use(express.static('public'));
+app.use(ignoreFavicon);
 
 app.use('/admin', adminRouter);
 app.use(bodyParser.json());
@@ -23,6 +25,14 @@ app.get('/', function (req, res) {
         res.render('main', {program_list: results});
     });
 });
+
+function ignoreFavicon(req, res, next) {
+    if (req.originalUrl === '/favicon.ico') {
+      res.status(204).json({nope: true});
+    } else {
+      next();
+    }
+  }
 
 
 
