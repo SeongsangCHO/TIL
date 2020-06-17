@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 var qs = require('querystring');
 var url = require('url');
-var bodyParser = require('body-parser');
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true}));
+//var bodyParser = require('body-parser');
+//router.use(bodyParser.json());
+//router.use(bodyParser.urlencoded({ extended: true}));
 
+router.use(express.json());
+router.use(express.urlencoded({ extended: true}));
+//혹시 이거 실행시켜서 db입력 잘되나 체크해주실수잇나요?
 var db = require('../config/db_conn');
 // admin page input date
 
@@ -27,8 +30,7 @@ router.post('/register', function (req, res) {
         ' program_content) VALUES (?,?,?,?,?)';
     db.query(sql, insertData, function (err, results) {
         if(err)
-            console.log(err);
-        console.log("input id is... " + results.insertId);
+            throw (err);
     });
     res.redirect('/admin/list');
     //res.render('admin');
@@ -38,11 +40,11 @@ router.get('/list', function (req, res) {
     var sql = 'SELECT * FROM program_table';
     db.query(sql, function (err, results) {
         if(err)
-            console.log(err);
+            throw (err);
+
         res.render('list', {program_list : results});
     })
 });
-
 
 // get으로 qs받아오기, http://blog.naver.com/agapeuni/221064805723
 router.get('/delete', function (req, res) {
@@ -50,7 +52,7 @@ router.get('/delete', function (req, res) {
     var sql = 'delete from program_table where program_id = ?';
     db.query(sql, deleteId, function (err, result) {
         if(err)
-            console.log(err);
+            throw (err);
         res.redirect('/admin/list');
     })
 });
@@ -75,8 +77,8 @@ router.post('/update', function (req,res) {
                 'where program_id = ?';
     db.query(sql, updateData, function (err, results) {
         if(err)
-            console.log(err);
-        console.log(results);
+            throw (err);
+        throw (results);
     });
     res.redirect('/admin/list');
 })

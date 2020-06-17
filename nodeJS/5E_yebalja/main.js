@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
+<<<<<<< HEAD
 const port = process.env.PORT || 8080;
+=======
+const port = 3000;
+//로컬에서 돌릴 땐 127.0.0.1로 변경
+//const hostname = '10.178.0.2';
+>>>>>>> 2904ce4f39e1e94ec0be41288a60bdf7c5db7e7b
 var qs = require('querystring');
 var bodyParser = require('body-parser');
 var db = require('./config/db_conn');
