@@ -87,7 +87,7 @@ render(){
 												value={this.state.completed}/>
 											</TableCell>
 										</TableRow>
-										}
+						}
 					</TableBody>
 				</Table>
 			</Paper>
