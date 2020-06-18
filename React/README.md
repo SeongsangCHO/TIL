@@ -27,7 +27,15 @@
 <br>
 
 ### [1. 리액트란?(개발환경 구축, 컴포넌트)](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2301.md)
+
 - 개발환경구축을 진행하고, 컴포넌트에 대한 예제 작성
 
-### [2. 라이프사이클, 이벤트메소드, Node와 React의 서버 구축]()
+### [2. 라이프사이클, 이벤트메소드, Node와 React의 서버 구축](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md)
+
 - 컴포넌트에 대한 라이프사이클, 이벤트 메소드를 작성하며 이해하고, Node와 React서버를 구축
+
+### [3. 리액트와 노드사이의 통신 (노드의 데이터를 리액트에서 로드하기 - proxy설정)]()
+
+- 노드(서버)의 데이터를 리액트에서 로드하기
+- DB구축시 서버에서 리액트(프론트)로 데이터를 로드할 수 있음
+- 프록시 포트설정

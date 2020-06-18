@@ -33,6 +33,7 @@ class App extends Component{
 	}
 
 componentDidMount(){
+	console.log('didMount');
 	this.callApi()
 		.then(res => this.setState({customers: res}))
 		.catch(err => console.log(err));
@@ -41,6 +42,7 @@ componentDidMount(){
 //react -> 해당 URI(node)에 접근해서, json형태(customers)의 값을
 //body로 받아온다.
 callApi = async() =>{
+	console.log('callApi');
 	const response = await fetch('/api/customers');
 	const body = await response.json();
 	return body;
