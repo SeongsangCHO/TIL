@@ -2,11 +2,12 @@
     "name": "management",
     "version": "1.0.0",
     "scripts": {
-        "client": "cd client && npm run start",
-        "server": "nodemon server.js",
-        "dev": "concurrently --kill-others-on-fail \"node server\" \"node client\""
+        "client": "cd react-app/client && yarn start",
+        "server": "node server.js",
+        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
     "dependencies": {
+        "yarn": "^1.13.0",
         "body-parser": "^1.18.3",
         "express": "^4.16.4"
     },

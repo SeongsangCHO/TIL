@@ -7,7 +7,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 app.get('/api/hello', (req, res) => {
-    res.send({message: 'hello express'});
+    res.send({
+        message: 'hello express'
+    });
 });
 
 app.listen(port, ()=> console.log(`Listening on port${port}`));
