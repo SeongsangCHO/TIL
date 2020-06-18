@@ -14,76 +14,66 @@ import TableCell from '@material-ui/core/TableCell';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => ({
-    root:{
-      width : '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: "auto"
-    },
-    table: {
-      minWidth: 1080
-    }
+		root:{
+			width : '100%',
+			marginTop: theme.spacing(4),
+			overflowX: "auto"
+		},
+		table: {
+			minWidth: 1080
+		}
 
 })
 
-const customers = [
-  {
-    'id' : 1,
-    'image' :'https://placeimg.com/64/64/1',
-    'name' : 'secho',
-    'birthday' : '1125',
-    'gender' : 'man',
-    'job' : 'TT'
-  },
-  {
-    'id' : 2,
-    'image' :'https://placeimg.com/64/64/2',
-    'name' : 'who',
-    'birthday' : '1225',
-    'gender' : 'man',
-    'job' : 'TUT'
-  },
-  {
-    'id' : 3,
-    'image' :'https://placeimg.com/64/64/3',
-    'name' : 'you',
-    'birthday' : '0125',
-    'gender' : 'girl',
-    'job' : 'TOT'
-  }
-];
-
-
-
-
-
 
 class App extends Component{
-  render(){
-    const { classes } = this.props;
-    return(
-      <div>
-      <Paper className={ classes.root }>
-        <Table className= { classes.table }>
-          <TableHead>
-            <TableRow>
-              <TableCell>번호</TableCell>
-              <TableCell>이미지</TableCell>
-              <TableCell>이름</TableCell>
-              <TableCell>생일</TableCell>
-              <TableCell>성별</TableCell>
-              <TableCell>직업</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {customers.map(c => { return ( <Customer key={c.id} id={c.id} image={c.image}
-              name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}
-            />); }) }
-          </TableBody>
-        </Table>
-      </Paper>
-      </div>
-    );
-  }
+
+	state = {
+		customers : ""
+	}
+
+componentDidMount(){
+	this.callApi()
+		.then(res => this.setState({customers: res}))
+		.catch(err => console.log(err));
+}
+
+//react -> 해당 URI(node)에 접근해서, json형태(customers)의 값을
+//body로 받아온다.
+callApi = async() =>{
+	const response = await fetch('/api/customers');
+	const body = await response.json();
+	return body;
+}
+
+render(){
+		const { classes } = this.props;
+		return(
+			<div>
+			<Paper className={ classes.root }>
+				<Table className= { classes.table }>
+					<TableHead>
+						<TableRow>
+							<TableCell>번호</TableCell>
+							<TableCell>이미지</TableCell>
+							<TableCell>이름</TableCell>
+							<TableCell>생일</TableCell>
+							<TableCell>성별</TableCell>
+							<TableCell>직업</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{
+							this.state.customers ? this.state.customers.map(c => {
+								 return ( <Customer key={c.id} id={c.id} image={c.image}
+										name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}
+										/>); }) : null}
+					</TableBody>
+				</Table>
+			</Paper>
+			</div>
+		);
+	}
 }
 
 
@@ -93,7 +83,7 @@ export default withStyles(styles)(App);
 
 
 
-  
+	
 // constructor(props){
 //   super(props);
 //   this.state = {
