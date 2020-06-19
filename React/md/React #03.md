@@ -1,4 +1,4 @@
-## React #03(리액트와 노드사이의 통신 (노드의 데이터를 리액트에서 로드하기)
+## React #03 리액트와 노드사이의 통신 _노드의 데이터를 리액트에서 로드하기
 
 
 
@@ -14,7 +14,7 @@
 
 **리액트**와 **노드**사이에 **통신**하려면, 먼저 두개의 포트를 각각 클라이언트사이드, 서버 사이드로 할당하여 동시에 서버구동을 해야한다.
 
-[#02]([https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React %2302 (Life Cycle%2C node %2B react 환경구축).md)의 링크과 글을 함께 참고해서 동시서버구동을 진행해본다.
+[#02](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md)의 링크과 글을 함께 참고해서 동시서버구동을 진행해본다.
 
 <br>
 
@@ -149,6 +149,3 @@ return (...) : null} ...};
 - null값으로 랜더링이되면 componentDidMount()내용을 수행합니다.해당 메소드에서 callApi()를 호출합니다.
 - callApi에선 await-async문법으로 해당 uri에서 json으로 데이터를 받아오고, 이를 반환합니다.
 - 반환받은 응답을 customers로 setState하고 컴포넌트에서 데이터를 보여줄 수 있습니다.
-
-
-

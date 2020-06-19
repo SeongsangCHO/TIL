@@ -13,6 +13,12 @@ import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {withStyles} from '@material-ui/core/styles';
 
+
+//import Timeline from '@material-ui/lab/Timeline';
+// or
+import { Listitem } from '@material-ui/core/ListItemIcon';
+
+
 const styles = theme => ({
 		root:{
 			width : '100%',
@@ -79,7 +85,7 @@ render(){
 						{
 							this.state.customers ? this.state.customers.map(c => {
 								 return ( <Customer key={c.id} id={c.id} image={c.image}
-										name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}
+										name={c._name} birthday={c.birthday} gender={c.gender} job={c.job}
 										/>); }) : 
 										<TableRow>
 											<TableCell colSpan="6" align="center">
@@ -91,6 +97,7 @@ render(){
 					</TableBody>
 				</Table>
 			</Paper>
+			<Listitem/>
 			</div>
 		);
 	}
