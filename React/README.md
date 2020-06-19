@@ -32,7 +32,7 @@
 
 ### [2. 라이프사이클, 이벤트메소드, Node와 React의 서버 구축](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md)
 
-- 컴포넌트에 대한 라이프사이클, 이벤트 메소드를 작성하며 이해하고, Node와 React서버를 구축
+- 컴포넌트에 대한 라이프사이클, 이벤트 메소드를 작성하며 이해하고, Node와 React서버를 구축_
 
 ### [3. 리액트와 노드사이의 통신 _노드의 데이터를 리액트에서 로드하기 - proxy설정](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2303(%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%99%80%20%EB%85%B8%EB%93%9C%EC%82%AC%EC%9D%B4%EC%9D%98%20%ED%86%B5%EC%8B%A0%20(%EB%85%B8%EB%93%9C%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90%EC%84%9C%20%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0).md)
 
