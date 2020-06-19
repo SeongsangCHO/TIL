@@ -14,7 +14,7 @@
 
 **리액트**와 **노드**사이에 **통신**하려면, 먼저 두개의 포트를 각각 클라이언트사이드, 서버 사이드로 할당하여 동시에 서버구동을 해야한다.
 
-[#02](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React %2302 (Life Cycle%2C node %2B react 환경구축).md)의 링크과 글을 함께 참고해서 동시서버구동을 진행해본다.
+[#02](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2302%20(Life%20Cycle%2C%20node%20%2B%20react%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95).md)의 링크과 글을 함께 참고해서 동시서버구동을 진행해본다.
 
 <br>
 
