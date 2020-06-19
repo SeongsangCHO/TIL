@@ -34,7 +34,7 @@
 
 - 컴포넌트에 대한 라이프사이클, 이벤트 메소드를 작성하며 이해하고, Node와 React서버를 구축
 
-### [3. 리액트와 노드사이의 통신_노드의 데이터를 리액트에서 로드하기 - proxy설정](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2303(%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%99%80%20%EB%85%B8%EB%93%9C%EC%82%AC%EC%9D%B4%EC%9D%98%20%ED%86%B5%EC%8B%A0%20(%EB%85%B8%EB%93%9C%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90%EC%84%9C%20%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0).md))
+### [3. 리액트와 노드사이의 통신_노드의 데이터를 리액트에서 로드하기 - proxy설정](https://github.com/SeongsangCHO/TIL/blob/master/React/md/React%20%2303(%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%99%80%20%EB%85%B8%EB%93%9C%EC%82%AC%EC%9D%B4%EC%9D%98%20%ED%86%B5%EC%8B%A0%20(%EB%85%B8%EB%93%9C%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90%EC%84%9C%20%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0).md)
 
 - 노드(서버)의 데이터를 리액트에서 로드하기
 - DB구축시 서버에서 리액트(프론트)로 데이터를 로드할 수 있음
