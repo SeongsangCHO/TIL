@@ -33,7 +33,7 @@
 node.js설치, npm설치 후 react-app 설치합니다.
 
 ```
-$ npm install -g create-react-app
+$ npx create-react-app 생성할프로젝트네임
 $ create-react-app -v // 버전확인
 ```
 
