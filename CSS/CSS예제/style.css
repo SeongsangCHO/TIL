@@ -1,0 +1,29 @@
+.blind{
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin:  -1px;
+    width: 1px;
+    height: 1px;
+}
+
+
+div#header-center{
+    margin: 0 auto;
+    width:1080px;
+}
+
+/*시맨틱태그는 앞에 생략할 수 없음*/
+
+
+/* header-search의 자식인 h1을 선택 */
+div#header-search > h1{
+    width: 280px;
+    display: inline-block;
+}
+
+
+div#header-search  fieldset{
+    width: 520px;
+    display: inline-block;
+}

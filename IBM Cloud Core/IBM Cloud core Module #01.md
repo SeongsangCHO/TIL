@@ -74,7 +74,7 @@ Cloud환경에서 동작하는 응용프로그램을 서비스 형태로 제공�
 
 [참고](https://hocheon.tistory.com/110?category=892849)
 
-[참고2]([https://velog.io/@jyebe/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%BB%B4%ED%93%A8%ED%8C%85-%EA%B0%9C%EB%85%90-%EB%B0%8F-SaaS-PaaS-IaaS-%EB%B9%84%EA%B5%90#:~:text=%E2%86%92%20SaaS%EB%9E%80%20%EC%A3%BC%EB%A1%9C%20%EC%97%85%EB%AC%B4,%EB%A1%9C%20%EC%A0%9C%EA%B3%B5%ED%95%98%EB%8A%94%20%EB%AA%A8%EB%8D%B8%EC%9D%B4%EB%8B%A4.&text=%E2%86%92%20IaaS%EB%8A%94%20CPU%EB%82%98,%EB%A1%9C%20%EC%A0%9C%EA%B3%B5%ED%95%98%EB%8A%94%20%EB%AA%A8%EB%8D%B8%EC%9D%B4%EB%8B%A4.](https://velog.io/@jyebe/클라우드-컴퓨팅-개념-및-SaaS-PaaS-IaaS-비교#:~:text=→ SaaS란 주로 업무,로 제공하는 모델이다.&text=→ IaaS는 CPU나,로 제공하는 모델이다.))
+[참고2](https://velog.io/@jyebe/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EC%BB%B4%ED%93%A8%ED%8C%85-%EA%B0%9C%EB%85%90-%EB%B0%8F-SaaS-PaaS-IaaS-%EB%B9%84%EA%B5%90)
 
 <br>
 
@@ -186,5 +186,3 @@ IaaS, PaaS, Saas각각 20퍼 이상으로 향상할 것이다.
 ● 기업은 비즈니스 중단과 보안, 컴플라이언스 또는 성능 문제를 야기하지 않고 원하는 이점을 제공하는 클라우드 채택 전략을 수립하기 위해 비즈니스 요구, 투자 실행 가능성, 리스크 용량 등을 고려해야 한다.
 
 ● 클라우드 도입이 예상보다 빠르게 늘고 있다. 이러한 기술적 파장을 주도하는 것은 인프라, 플랫폼, 소프트웨어 서비스 등 다양한 서비스를 제공하는 클라우드 서비스 제공업체들이다. 당대의 주요 클라우드 제공업체로는 AWS, 알리바바 클라우드, 구글, IBM 클라우드, 마이크로소프트 Azure 등이 있다.
-
-

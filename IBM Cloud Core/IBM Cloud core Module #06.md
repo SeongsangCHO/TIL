@@ -2,17 +2,6 @@
 
 
 
-**Learning Objectives**
-
-
-
-After completing this module, you will be able to:
-
-- Describe the emergent cloud trends such as Hybrid Multicloud, Microservices, and Serverless
-- Explain how cloud native applications work
-- Explain how DevOps helps tackle some of the complexities posed by cloud
-- Describe the benefits of application modernization and how organizations can modernize their applications
-
 <br>
 
 ### Hybrid Multi Cloud
@@ -43,7 +32,7 @@ After completing this module, you will be able to:
 
 백엔드 서버를 구성해야하는데 필요한 기능들이 있습니다. DB, SNS연동, 파일시스템 등을 일일히 설정해야합니다. Firebase는 이를 API로 제공해 서버 개발을 하지 않아도 됩니다.  이를 서버리스, Baas(Back-end as a Service)라 합니다.
 
-[출처]([https://velopert.com/3543#:~:text=%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4(Serverless)%EB%A5%BC%20%EC%A7%81%EC%97%AD,%EA%B2%83%EC%9D%B4%20%EC%95%84%EB%8B%98%EC%9D%84%20%EC%9D%98%EB%AF%B8%ED%95%A9%EB%8B%88%EB%8B%A4.](https://velopert.com/3543#:~:text=서버리스(Serverless)를 직역,것이 아님을 의미합니다.)
+[출처](https://velopert.com/3543#:~:text=%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4(Serverless)%EB%A5%BC%20%EC%A7%81%EC%97%AD,%EA%B2%83%EC%9D%B4%20%EC%95%84%EB%8B%98%EC%9D%84%20%EC%9D%98%EB%AF%B8%ED%95%A9%EB%8B%88%EB%8B%A4.](https://velopert.com/3543#:~:text=서버리스(Serverless)를 직역,것이 아님을 의미합니다.)
 
 <br>
 

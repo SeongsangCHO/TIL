@@ -1,11 +1,6 @@
 ## IBM Cloud core Module #05
 
-**Learning Objectives**
 
-After completing this module, you will be able to:
-
-- Describe and differentiate between the four main types of cloud storage - Direct Attached, File Storage, Block Storage and Object Storage
-- Explain the benefits of Content Delivery Networks
 
 <br>
 
