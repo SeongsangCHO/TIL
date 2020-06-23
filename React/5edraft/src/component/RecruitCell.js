@@ -22,10 +22,8 @@ const classes = useStyles();
     return(
         <TableRow>
            <TableCell align="center">{contentArr}</TableCell>
-           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
-           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
-           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
-           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell align="center" colSpan={4} padding="none" className={classes.recruiting}>오룝다</TableCell>
+
 
            <TableCell padding="none" className={classes.null}>.</TableCell>
            <TableCell padding="none" className={classes.null}>.</TableCell>

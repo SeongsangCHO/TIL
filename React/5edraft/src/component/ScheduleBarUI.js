@@ -6,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import DetailCard from '../component/DetailCard';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,7 +22,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component={'div'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -80,6 +82,7 @@ function ScheduleBarUI() {
       </AppBar>
       <TabPanel value={value} index={0}>
         부트캠프일정여기변하냐
+        <DetailCard/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         해커톤일정
@@ -98,7 +101,11 @@ function ScheduleBarUI() {
       </TabPanel>
       <TabPanel value={value} index={6}>
         맥주랑
+        <div>
+        <DetailCard/>
+        </div>
       </TabPanel>
+      
     </div>
   );
 }

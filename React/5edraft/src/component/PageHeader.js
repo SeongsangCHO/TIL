@@ -11,7 +11,7 @@ function PageHeader() {
             <Logo/>
             <RightUpSide/>
             <ScheduleBar/>
-            <ScheduleBarUI/>
+            
         </div>
     );
 }
