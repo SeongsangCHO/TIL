@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../css/header.css'
 function ScheduleBar(){
     return(
         <div className="ScheduleBar">

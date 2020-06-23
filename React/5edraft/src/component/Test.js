@@ -8,8 +8,8 @@ function Test(props){
       console.log(props); 
     })
     return(
-        <div id={props.id}>
-            대충 안녕이라는 이름을 가짐.
+        <div id={props.id} style={{textAlign: 'center'}}>
+            함수형 컴포넌트 props 값 변경
         </div>
     );
 }
