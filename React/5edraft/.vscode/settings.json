@@ -1,0 +1,6 @@
+{
+    "prettier.disableLanguages": [
+        "react"
+    ],
+    "prettier.useTabs": true
+}

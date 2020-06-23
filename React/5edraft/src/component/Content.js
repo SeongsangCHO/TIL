@@ -8,11 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import '../css/content.css'
-
-const MonthHeader = ({month}) =>{
-    return (<TableCell>{month}월</TableCell>);
-  
-}
+import TableHeader from './TableHeader';
+import TableContent from './TableContent';
 
 function Content(){
 
@@ -22,30 +19,19 @@ function Content(){
     
     return(
         <TableContainer component={Paper}>
+            <div>테이블도 반복문해서 만들면 될것같고.</div>
         <Table aria-label="spanning table">
-          <TableHead>
-            <TableRow>
-              <TableCell>프로그램명</TableCell>
-              {monthList.map((month, index)=>(
-                  <MonthHeader key={index} name={month}/>
-              ))}
-            </TableRow>
-        
-          </TableHead>
+            <TableHeader/>
+            <TableContent title={'42서울'} recruitCnt={4}/>
+         </Table>
 
-          <TableBody>
-
-            <TableRow>
-
-              <TableCell>42서울</TableCell>
-              <TableCell>냠</TableCell>
-            </TableRow>
-           
-          </TableBody>
+        <div>header를 hidden할수없나 프로그램마다 테이블 여러개를 만들어 볼까 | 전달할 값이 프로그램명, 기수의 갯수, 일정</div>
+        <Table aria-label="spanning table">
+            <TableHeader/>
+            <TableContent title={'부스트캠프'} recruitCnt={4}/>
         </Table>
-      </TableContainer>
-      
 
+      </TableContainer>
     );
 
 }
@@ -55,3 +41,7 @@ export default Content;
 {/* <div className="Content">
 컨텐츠내용
 </div> */}
+
+// {monthList.map((month, index)=>(
+//     <MonthHeader key={index} name={month}/>
+// ))}   
