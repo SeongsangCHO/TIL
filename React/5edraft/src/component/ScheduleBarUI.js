@@ -71,10 +71,10 @@ function ScheduleBarUI() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="부트캠프일정" {...a11yProps(0)} />
-          <Tab label="해커톤일정" {...a11yProps(1)} />
-          <Tab label="컨퍼런스일정" {...a11yProps(2)} />
-          <Tab label="아직도" {...a11yProps(3)} />
+          <Tab label="42서울" {...a11yProps(0)} />
+          <Tab label="부스트캠프" {...a11yProps(1)} />
+          <Tab label="ssafy" {...a11yProps(2)} />
+          <Tab label="sw마에스트로" {...a11yProps(3)} />
           <Tab label="감자튀김" {...a11yProps(4)} />
           <Tab label="먹고싶다" {...a11yProps(5)} />
           <Tab label="맥주랑" {...a11yProps(6)} />
