@@ -21,7 +21,7 @@ const contentArr = props.content;
 const classes = useStyles();
     return(
         <TableRow>
-           <TableCell>{contentArr}</TableCell>
+           <TableCell align="center">{contentArr}</TableCell>
            <TableCell padding="none" className={classes.recruiting}>.</TableCell>
            <TableCell padding="none" className={classes.recruiting}>.</TableCell>
            <TableCell padding="none" className={classes.recruiting}>.</TableCell>
@@ -31,6 +31,57 @@ const classes = useStyles();
            <TableCell padding="none" className={classes.null}>.</TableCell>
            <TableCell padding="none" className={classes.null}>.</TableCell>
            <TableCell padding="none" className={classes.null}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+           <TableCell padding="none" className={classes.recruiting}>.</TableCell>
+
 
         </TableRow>
     );

@@ -13,13 +13,13 @@ function TableHeader(){
 
 
     return(
-        <TableHead>
-            <TableRow>
-            <TableCell >프로그램명</TableCell>
-            <TableCell rowSpan={3}>기수</TableCell>
+        <TableHead >
+            <TableRow selected={true}>
+            <TableCell align="center">프로그램명</TableCell>
+            <TableCell align="center"rowSpan={3}>기수</TableCell>
 
             {monthList.map((month, idx)=>(
-                <TableCell colSpan={4} key={idx}>{month}</TableCell>
+                <TableCell variant="head" padding="none" align="center" colSpan={4} key={idx}>{month}</TableCell>
                 ))}
             </TableRow>
       </TableHead>

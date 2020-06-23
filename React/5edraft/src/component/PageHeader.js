@@ -3,6 +3,7 @@ import '../css/header.css';
 import RightUpSide from './RightUpSide';
 import Logo from './Logo';
 import ScheduleBar from './ScheduleBar';
+import ScheduleBarUI from './ScheduleBarUI';
 
 function PageHeader() {
     return(
@@ -10,6 +11,7 @@ function PageHeader() {
             <Logo/>
             <RightUpSide/>
             <ScheduleBar/>
+            <ScheduleBarUI/>
         </div>
     );
 }

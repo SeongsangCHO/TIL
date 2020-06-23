@@ -18,11 +18,11 @@ function Content(){
 
     
     return(
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} >
             <div>테이블도 반복문해서 만들면 될것같고.</div>
-        <Table aria-label="spanning table">
-            <TableHeader/>
-            <TableContent title={'42서울'} recruitCnt={4}/>
+        <Table aria-label="spanning table" >
+            <TableHeader />
+            <TableContent  title={'42서울'} recruitCnt={4}/>
          </Table>
 
         <div>header를 hidden할수없나 프로그램마다 테이블 여러개를 만들어 볼까 | 전달할 값이 프로그램명, 기수의 갯수, 일정</div>

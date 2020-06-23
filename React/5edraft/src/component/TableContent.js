@@ -12,8 +12,8 @@ function TableContent(props){
     return(
         <TableBody>
 
-            <TableRow>
-                <TableCell rowSpan={props.recruitCnt}>{props.title}</TableCell>
+            <TableRow >
+                <TableCell align="center" rowSpan={props.recruitCnt}>{props.title}</TableCell>
             </TableRow>
 
             <RecruitCell recruitCnt={props.recruitCnt} content={'1기 1차'}/>
