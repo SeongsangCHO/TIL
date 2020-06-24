@@ -10,7 +10,7 @@
 
 <br>
 
-[참고]([https://velog.io/@velopert/react-hooks#:~:text=Hooks%20%EB%8A%94%20%EB%A6%AC%EC%95%A1%ED%8A%B8%20v16,%EC%9D%84%20%ED%95%A0%20%EC%88%98%20%EC%9E%88%EA%B2%8C%20%ED%95%B4%EC%A4%8D%EB%8B%88%EB%8B%A4.](https://velog.io/@velopert/react-hooks#:~:text=Hooks 는 리액트 v16,을 할 수 있게 해줍니다.))
+[참고](https://velog.io/@velopert/react-hooks)
 
 ### 1. useState
 
