@@ -1,40 +1,51 @@
-const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const port = process.env.PORT || 8080;
 
 module.exports = {
-  mode: 'development', //배포시 production
-  devtool: 'eval', //배포시 hidden-source-map
-  resolve: {
-    extensions: ['.jsx', '.js'],
+  mode:'development',
+  entry:'./src/index.js',
+  output:{
+    path: __dirname + '/dist',
+    filename: 'bundle.[hash].js'
   },
-
-  entry: {
-    app: ['./client'],
-  },
-  module: {
-    rules: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          ['@babel/preset-env', {
-            targets: {
-              browsers: ['> 1% in KR'],
-            },
-            debug: true,
-          }],
-          '@babel/preset-react'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          'react-hot-loader/babel',
-        ],
+  module:{
+    rules:[
+      { // 첫번째 룰
+        test:/\.js$/,
+        exclude:/node_modules/,
+        use:['babel-loader']
       },
-    }],
+      { // 두번째 룰
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              camelCase: true,
+              sourceMap: true
+            }
+          }
+        ]
+      }
+    ]
   },
-  plugins: [],
-
-  output: {
-    filename: 'app.js',
-    path: path.join(__dirname, 'dist'),
+  devtool: 'inline-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+      // favicon: 'public/favicon.ico' 파비콘은 준비가 되어있지 않아 주석처리합니다.
+    })
+  ],
+  devServer: {
+    host: 'localhost',
+    port: port,
+    open: true,
+    historyApiFallback: true
   }
-}
-//npm run dev 혹은 npx webpack으로 실행
+};
