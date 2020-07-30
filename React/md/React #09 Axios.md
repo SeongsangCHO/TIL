@@ -1,4 +1,6 @@
-## nodeJS #12 axios 사용
+## React #09 Axios
+
+
 
 이전에 getInitialProps와 fetch()API를 이용해서 서버의 데이터를 받아오는 작업을 진행했다.
 
@@ -103,4 +105,6 @@ effect함수는 다른 함수를 반환해선 안된다고 한다. effect안에 
 냐호~
 
 
+
+[참고예제](https://www.robinwieruch.de/react-hooks-fetch-data)
 
