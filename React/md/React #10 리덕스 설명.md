@@ -44,7 +44,7 @@ const initialState = {light : false, counter : 0}
 
 ### 리듀서 함수 정의
 
-리듀서는 변화를 일으키느 함수. 파라미터로 `state`, `action`을 받음
+리듀서는 변화를 일으키는 함수. 파라미터로 `state`, `action`을 받음
 
 ```javascript
 function reducer(state = initialState, action){
