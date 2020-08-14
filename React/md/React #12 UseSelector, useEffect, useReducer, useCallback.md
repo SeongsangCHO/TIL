@@ -1,4 +1,4 @@
-## React #12 UseSelector, useEffect- axios사용, 리랜더링
+## React #12 UseSelector, useEffect, useReducer, useCallback 
 
 <br>
 
@@ -77,4 +77,28 @@ useEffect를 사용하면 데이터를 불러오는 방법을 파악하는데 �
 useEffect에서 두번째 인자인 `[]`은 버그를 일으키는 주된 원인이라고 한다.
 
 의존성을 필요로 하는 상황을 제거하는 `useReducer, useCallback`을 알아두자.
+
+
+
+<br>
+
+## useReducer
+
+리듀서는 현재 상태 + 액션값을 전달 받아 새로운 상태를 반환함.
+
+**불변성**을 지키면서 새로운 상태를 반환.
+
+`useReducer`에서의 액션 객체는 꼭 `type`를 지닐 필요가 없음
+
+
+
+<br>
+
+
+
+## useCallback
+
+메모이제이션과 비슷한 기능을 하는 `useMemo`와 비슷한 함수.
+
+컴포넌트가 리랜더링될 때마다 수행되는 함수들의 반복때문에 생기는 이슈들을 최적화하기 위해 사용한다.
 
