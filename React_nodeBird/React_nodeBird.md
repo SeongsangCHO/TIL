@@ -369,7 +369,7 @@ eslint 엄격하게 하기
 
 <br>
 
-## 4.8 Saga로 게시글작성 적용하기
+## 4.8, 9 Saga로 게시글작성 ,삭제적용하기
 
 <br>
 
@@ -379,7 +379,194 @@ eslint 엄격하게 하기
   - `shortId.generate()`
 - `faker`라이브러리는 각종 더미데이터를 만들어줌!
 
+<br>
+
+#### 1.1 faker
+
+`npm i faker`
+
+`import faker from 'faker'`
 
 
 
+<br>
+
+
+
+#### 2. 게시글 삭제
+
+```react
+//sagas/user.js
+
+case REMOVE_POST_OF_ME:
+	return {
+		...state,
+		me: {
+			...state.me,
+			Posts: state.me.Posts.filter((v) => v.id !== action.data),
+			//게시글을 지우기 위해선 filter을 이용한다
+		}
+	}
+```
+
+불변성을 꼭 지켜야한다.
+
+상태관리에 있어서 state를 변경할 때 `setState`를 통해서만 업데이트 해주어야하고, 업데이트 과정에서 기존 객체값을 절대로 직접 수정해선 안된다.
+
+가상 DOM에서 랜더링을 마치고, `diffing`알고리즘을 통해 변화가 일어나는 부분만 업데이트가 된다.
+
+`setState`를 통해 변경하지 않으면 리랜더링이 되지 않는다.
+
+
+
+`...state`를 사용하는 이유임. -> 기존 객체는 나머지 매개변수로 건들이지 않고, 새 객체를 생성하며 `불변을 유지하면서` 값을 `업데이트`할 수 있는 것.
+
+이런 작업을 쉽게 해주는 것이 `immer`! Immutable.js와 비교도 안되게 좋음.
+
+
+
+<br>
+
+
+
+### 2. immer  
+
+기존 리듀서에서 불변성을 지키는 것과  immer도입의 차이점은
+
+`swtich case`문에서 `...`나머지 매개변수를 사용할 필요가 없다는 것과 새로운 객체 `{ }` 리터럴로 감싸면서 새로운 상태를 반환할 필요가 없어짐. `draft`로만으로 이게 됨
+
+hooks엔 `use-immer`를 사용하면 됨
+
+여기서 다룰건 `immer`
+
+
+
+<br>
+
+##### 사용법
+
+`npm i immer`
+
+`import produce from 'immer'`
+
+불변성 지옥에서 우리를 구원해줄 `immer`
+
+애초에 코딩하기전에 `immer`를 도입해버리자.
+
+```react
+// reducer- 불변성을 지키면서 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수
+
+
+//state가 draft로 바뀜, 불변성 상관없이 막 바꿔두됨 immer가 불변성 지켜서 다음상태로 만들어줌
+const reducer = (state = initailState, action) => {
+	return produce(state, (draft) => {
+	switch (action.type){
+		case: ADD_POST_REQUEST:
+			draft.addPostLoading: true;
+			...
+	}
+	});
+}
+```
+
+
+
+<br>
+
+##### 코드로서의 차이점
+
+`immer 도입 전`
+
+```react
+case ADD_COMMENT_SUCCESS: {
+    //불변성을 지키기위한 부분//
+	const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
+	const post = { ...state.mainPosts[postIndex] };
+	post.Comments = [dummyComment(action.data.content), ...post.Comments];
+	const mainPosts = [...state.mainPosts];
+	mainPosts[postIndex] = post;
+    //불변성을 지키기위한 부분//
+	return {
+		...state,
+		mainPosts,
+		addCommentLoading: false,
+		addCommentDone: true,
+	};
+}
+```
+
+<br>
+
+`immer 도입 후`
+
+```react
+case ADD_COMMENT_SUCCESS: {
+    //알아서 불변성을 유지해주니, 바꿀것만 바꾸면 됨.
+	const post = draft.mainPosts.find((v) => v.id === action.data.postId);
+	post.Comment.unshift(dummyComment(action.data.content));
+	draft.addCommentLoading = false;
+	draft.addCommentDone = true;
+	break;
+}
+```
+
+
+
+<br>
+
+
+
+`redux-toolkit`을 따라가도 좋음
+
+`placeholder.com` <- 크기별로 더미이미지를 제공함
+
+
+
+<br>
+
+
+
+## 4.12 인피니트 스크롤 적용
+
+<br>
+
+`draft.hasMorePosts = draft.mainPosts.length < 50;`
+
+-> 특정 갯수만큼 게시글을 보여주기 위한 `true, false`설정
+
+
+
+```react
+useEffect(() => {
+	function onScroll(){
+        console.log(window.scrollY, document,documentElement.clientHeight, document,documentElement.scrollHeight); // 이 3가지 변수를 많이씀.
+        if(window.scrollY + doc...clientHeight > docue...scrollHeight - 300) // 300px이전에 미리로딩하기
+            {
+                if (hasMorePost) {
+                    dispatch({
+                        type: LOAD_POSTS_REQUEST,
+                    });
+                }
+            }
+	}
+	//window의 add-하면 scorll한것 remove-지워주어야함. 메모리에 계속쌓임
+	window.addEventListener('scroll', onScroll);
+	return() => {
+		window.removeEventListener('scroll', onScorll);
+	};
+}, [])
+```
+
+
+
+- `clientHeight` : 화면이 보이는 길이 현재화면 위에서 아래까지
+- `scrollY` : 제일 위에서부터, 얼마나 내렸는지 -> 옹 퍼센테이지로 볼 수 있겠네.
+  - 이게 몇퍼센트면 어떤 컴포넌트를 보여주겠다 하면 팀원소개페이지 생각한대로 구현가능.
+- `scrollHeight` : 총 길이 
+
+
+
+실무에서는 특정 픽셀이 남았을 때 미리 로딩해주는 방식으로 사용함.
+
+인피니트 스크롤 구현 + 리액트 버추얼라이즈드 구현해보면 좋음
 
