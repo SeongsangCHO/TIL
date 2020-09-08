@@ -570,3 +570,175 @@ useEffect(() => {
 
 인피니트 스크롤 구현 + 리액트 버추얼라이즈드 구현해보면 좋음
 
+
+
+---
+
+## Back단
+
+<br>
+
+### CORS
+
+- 다른 도메인으로 요청을 보내면 **브라우저**가 차단을함.
+- CORS에 대한 해결책으로 브라우저를 변조할 수없음
+- 브라우저 -> 다른 도메인으로 요청을 보냈을 때만 에러가 생김
+
+<br>
+
+#### CORS 해결방법
+
+- 프록시를 사용하는 방법.
+
+- `ACCESS - CONTROL - Allow - ORIGIN`헤더를 추가하는 방법 
+
+- ```javascript
+  res.setHeader('Access-Control-Allow-Origin', '허용할 요청 URL');
+  ```
+
+- `cors 미들웨어`로 처리
+
+  - ```javascript
+    app.use(cors({
+     origin: '요청 URL',
+     credential:
+    }))
+    ```
+
+    
+
+  ---
+
+#### 프론트단에서 redirect
+
+```javascript
+import Router from 'next/router';
+useEffect(() => {
+	if(...)
+		Router.push('/');//요청 경로
+},[]);
+```
+
+<br>
+
+#### 중복되는 주소 제거하기 : axios의 baseURL지정하기
+
+```react
+import axios from 'axios';
+//sagas/index.js
+axios.defaults.baseURL = 'http://....';
+```
+
+ <br>
+
+### passport로 로그인하기
+
+<br>
+
+다양한 로그인전략들을 한번에 관리해주는 `passport`미들웨어를 설치
+
+
+
+`npm i passport passport-local`
+
+passport-local은 이메일과 비밀번호로 로그인할 수 있도록 도와주는 미들웨어다.
+
+
+
+##### passport세팅
+
+
+
+app.js, passport/index.js와 local.js 이 세개의 파일에서 연결이 이루어진다.
+
+```react
+//passport/index.js
+
+const passport = require('passport');
+const local = require('./local')
+
+module.exports = () => {
+	passport.serializeUser(() => {
+	
+	});
+	
+	passport.deserializeUser(() => {
+	
+	});
+	local();
+};
+```
+
+
+
+
+
+```react
+//passport/local.js
+
+const passport = require('passport');
+//구조분해할 때 가져오는 것 이름변경
+const {Strategy : LocalStrategy} = require('passport-local');
+
+//module..은 passport/index.js의 local()에서 실행되는 부분
+
+module.exports = () => {
+    passport.use(new LocalStrategy({
+               userNameField:'email',
+        passwordField:'password';
+    }, async (email, password, done) => {
+        //req에서 받은email,password가 있는지 확인하는 부분
+        const user = await User.findOne({//시퀄라이즈로 진행한 DB에서 데이터 있는지 확인하는 부분
+        });
+        if (!user){
+            //데이터가 없을 때
+            done(null, false, {reason : '아이디가 없어요'});
+        }
+        bcrypt.compare(password, db의 password)//비교
+    }));
+    
+}
+```
+
+`done(서버에러, 성공, 클라이언트에러)`
+
+passport는 응답을 해주는 것이 아니라 결과를 알려주는 것.
+
+`done`이 콜백과 비슷한 것. 인자들이 `passport.authenticate(), err, user, info`로 전달되는 것
+
+- 로그인이 잘못되었을 때 `401`상태코드를 사용함
+
+- 401 `unauthorized` 비인증
+- `403` Forbidden 허용되지 않은 요청
+
+```javascript
+//passport전략을 시행하는 부분
+
+const passport = re...
+
+router.post('/login', passport.authenticate('local'), (err, user, info) =>{
+    if(err) console.error(err);
+    //next(err); <-이렇게 에러처리가능 (next인자가 있을때)
+});
+
+//미들웨어를 확장하는 방법
+router.post('/login', (req,res,next) => {
+    passport....위와 동일 
+})(req,res,next); //위에랑 같은역할, req,res,next를 사용할 수 있도록 미들웨어를 확장한 것
+
+```
+
+
+
+```react
+//app.js
+const passportConfig = require('./passport');
+//app.js에서 passport설정 불러오기
+
+passportConfig();
+```
+
+
+
+---
+
