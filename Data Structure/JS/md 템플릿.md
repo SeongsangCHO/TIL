@@ -9,7 +9,6 @@ Data structure with JS
 ## 큐
 
 
-
 <br>
 
 
@@ -22,7 +21,7 @@ Data structure with JS
 
 
 
-###장점
+### 장점
 
 
 
