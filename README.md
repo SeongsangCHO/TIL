@@ -4,7 +4,7 @@
 
 |        기간         |                             주제                             |                             요약                             |                              -                               |
 | :-----------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|     20.09.13 ~      | [Nodejs](https://github.com/SeongsangCHO/TIL/tree/master/nodeJS/md) |                      NodeJS, 웹 크롤링                       |                         온라인 강의                          |
+|     20.09.13 ~      | [Nodejs 웹 크롤링](https://github.com/SeongsangCHO/TIL/tree/master/nodeJS/md) |                      NodeJS, 웹 크롤링                       |                         온라인 강의                          |
 |     20. 09.13 ~     | [DataStructure](https://github.com/SeongsangCHO/TIL/tree/master/Data%20Structure/JS) |                           자료구조                           | [참고 레포지토리](https://github.com/trekhleb/javascript-algorithms)<br />[구현 사이트](https://www.educative.io/blog/javascript-data-structures)<br /> |
 |     20.08.21 ~      | [JavaScript](https://github.com/SeongsangCHO/TIL/tree/master/Java%20Script) |                 모던JS 튜토리얼을 통한 공부                  | [온라인 튜토리얼](https://ko.javascript.info/) 파트 1, 파트 2 |
 |     20.08.24 ~      | [React nodeBird](https://github.com/SeongsangCHO/TIL/blob/master/React_nodeBird/React_nodeBird.md) |                제로초 노드버그 강의 듣고 정리                |                          온라인강의                          |
