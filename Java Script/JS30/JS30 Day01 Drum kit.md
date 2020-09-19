@@ -13,23 +13,19 @@
 - 키 클릭시 눌른 키가 무엇인지 확인할 수 있도록 애니메이션추가
 - 특정시간 이후 애니메이션이 사라지도록 작성
 
+- 바닐라 JS로 각 키 버튼을 누를시 해당하는 사운드가 나오도록 작성한다.
 
+- keycode.info에서 해당하는 키코드를 확인한다.
 
-바닐라 JS로 각 키 버튼을 누를시 해당하는 사운드가 나오도록 작성한다.
+- `data-key` 65가 클릭되었을때 해당하는 audio가 출력되도록 작성한다.
 
+<br>
 
-
-
-
-keycode.info에서 해당하는 키코드를 확인한다.
-
-`data-key` 65가 클릭되었을때 해당하는 audio가 출력되도록.
+---
 
 ## 선수지식
 
 [트랜지션에도 생명주기와 비슷한것이 존재](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/transitionend_event)
-
-#### ---
 
 ### 1. dataset 속성
 
@@ -55,15 +51,19 @@ dataset속성은 비표준속성이다.
 
 ---
 
-
+<br>
 
 ### 2.querySelector
 
 웹 페이지내에 원하는 요소 노드에 접근하는 방법.
 
+<br>
+
 #### 2. 1 요소에 id속성이 있을 때
 
 - `document.getElementById(id)`를 이용해 접근
+
+<br>
 
 #### 2.2 CSS로 접근 id, class => querySelectorAll(css) ,querySelector
 
@@ -75,6 +75,8 @@ dataset속성은 비표준속성이다.
 
 - CSS선택자에 대응하는 모든 요소를 배열로 반환 => forEach로 반복문적용
 - selector은 주어진 CSS선택자중 첫 요소를 반환 == querySelectorAll()[0]
+
+<br>
 
 ### 3. className, classList
 

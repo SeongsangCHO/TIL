@@ -1,13 +1,11 @@
 ## JS30 Day03 Updating CSS Variables and JS
 
-
+<br>
 
 ### 요구사항
 
-- sass
 - 자바스크립트를 이용해서 CSS를 변경한다.
-- sass을 사용한다 -> CSS 변수
-- input으로 통해 선택된 value값을 px가 붙은 값으로 CSS스타일을 지정해주어야 하므로 `suffix`를 추가해주어야한다.
+- input의 이벤트를 통해 변경되는 value값에 px(suffix)를 붙여 `:root`전역 CSS에 재할당해주어야 함.
 - RGB값은 px가 필요없으므로 `data-sizing`을 지정해주지 않음. 값이 없다면 undefined가 되므로 ' '공백으로 처리하도록해야함
 
 ---
@@ -22,7 +20,7 @@
 
 
 
-#### CSS에서 변수사용법
+#### 1. CSS에서 변수사용법
 
 **HTML 어디에서나 변수에 접근하도록 선언**
 
@@ -41,19 +39,19 @@ p {
 
 
 
-#### Sass (SCSS)
+#### 1.2 Sass (SCSS)
 
-Syntactically Awesome Style Sheet
+- Syntactically Awesome Style Sheet
 
-전처리기(Sass)로 작성해 CSS로 컴파일해서 동작시키는 것
+- 전처리기(Sass)로 작성해 CSS로 컴파일해서 동작시키는 것
 
-선택자의 중첩, 조건, 반복, 단위연산 등 CSS보다 많은 기능을 편리하게 작성할 수 있다.
+- 선택자의 중첩, 조건, 반복, 단위연산 등 CSS보다 많은 기능을 편리하게 작성할 수 있다.
 
-CSS의 Superset
+- CSS의 Superset
 
+<br>
 
-
-
+### 코드 주석추가
 
 ```javascript
 function handleUpdate() {

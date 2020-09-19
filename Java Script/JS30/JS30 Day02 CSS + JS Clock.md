@@ -7,6 +7,8 @@
 - 시, 분, 초를 갖는 시계를 만들 것
 - JS와 CSS만으로!
 
+---
+
 ### 선수지식
 
 <br>
@@ -46,7 +48,7 @@
 
   
 
-
+<br>
 
 #### 1.2 rotate() - 지정요소 회전
 
@@ -60,7 +62,7 @@
   transform:rotate(deg) //deg만큼 회전
   ```
 
-
+<br>
 
 #### 1.3 translate() 지정 요소 x, y축 이동
 
@@ -74,7 +76,7 @@
 
   
 
-
+<br>
 
 #### 1.4 skew() 지정 요소 x, y축으로 기울이기
 
@@ -86,7 +88,7 @@
   transform:skew(x deg, y deg);
   ```
 
-  
+  <br>
 
 #### 1.5 transform-origin
 
@@ -97,7 +99,7 @@
   // px, %, left, center, right 중에서 사용가능
   ```
 
-
+<br>
 
 #### 1.6 transition 속성
 
@@ -112,7 +114,7 @@
 - transition-delay
   - 지연시켜 시작시킬 때 사용
 
-
+<br>
 
 #### 1.6 transition-time-function
 
