@@ -89,11 +89,73 @@ elem.onclick = function(e){
 
 ### 2.2 버블링과 캡쳐링
 
+
+
+- 이벤트는 `document`부터 시작해 `DOM`트리를 따라 `event.target`까지 내려감. 이벤트는 트리를 따라 내려가면서 `addEventListenter`로 할당한 핸들러를 동작시킴.
+  - 핸들러가 호출되고 `event.target`부터 시작해 최상위 노드까지 전달되며ㅕ `on<event`, `addEventListenter`로 할당한 핸들러를 동작시킴.
+
+- `이벤트 버블링` : 특정 화면요소에서 이벤트 발생시 상위 요소들로 전달되어가는 특성
+- `이벤트 캡쳐링` : 상위에서 하위로 탐색하며 이벤트 전파
+- `event.target`: 이벤트가 발생한 요소
+- `event.currentTarget` : 이벤트가 버블링되어진 상위 요소
+
+<br>
+
+#### 버블링 중단
+
+- `event.stopPropagagtion()`을 사용하면 버블링이 중단되나 버블링을 막아야하는 경우는 거의없음. -=> 커스텀 이벤트 등을 통해 문제해결할 수 있음
+
 ---
 
 <br>
 
-### 2.3 이벤트 위임
+### 2.3 이벤트 위임(event delegation)
+
+캡쳐링과 버블링을 활용한 이벤트 핸들링 패턴
+
+To-do를 만들 때 아래와 같이 구현한다면 이벤트 리슨를 각각 item에 대해 등록해야한다.
+
+```html
+<ul id ="todo-app">
+    <li class="item"> 밥</li>
+	<li class="item"> 잠</li>
+</ul>
+```
+
+
+
+`item.forEach('click', function({...}))` 이런 형태로 각 `li`마다 하나의 이벤트를 붙인다. 
+
+그런데 이 `li`가 10000000개 이상되면 이벤트도 그 갯수에 맞춰서 붙이면 매우 비효율적이다.
+
+따라서 모든 리스트에 대해 하나의 이벤트 리스너를 생성해 `전체 영역`에 등록하는 것이 효율적임. 이것이 `이벤트 위`
+
+<br>
+
+#### 이벤트 위임 구현
+
+이벤트 버블링
+
+```javascript
+let app = document.getElementById('todo-app');
+
+app.addEventListener('click', function(e){
+    if (e.target && e.target.nodeName === 'LI'){
+        let item = e.target;
+        //동작
+    }
+});
+```
+
+<br>
+
+#### 이벤트 위임 활용
+
+저장 ,불러오기, 검색하기 등의 버튼을 구현할 때 각 버튼의 메서드를 연결하는것보다 메뉴 전체의 하나의 핸들러를 추가하고 각 버튼에 `data-action`속성에 호출할 메서드를 할당해 주는 방법이 있음!
+
+`<button data-action="save"> 저장하기</button>`
+
+
 
 ---
 
