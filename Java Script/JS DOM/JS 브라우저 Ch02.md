@@ -163,11 +163,53 @@ app.addEventListener('click', function(e){
 
 ### 2.4 브라우저 기본동작
 
+상당수의 이벤트는 발생 즉시 브라우저에 의한 동작을 자동으로 수행함
+
+`onclick="return false"` 를 통해 막을수있거나
+
+`onclick="event.preventDefault"`로 막을 수 있음
+
+
+
+<br>
+
+##### addEventListener의 passive 옵션
+
+- `passive : true`옵션은 브라우저에게 `preventDefault()`를 호출하지 않겠다고 하는 역할
+  - 모바일에서 손가락을 대는 `touchmove`이벤트를 `preventDefault()`로 막을 수 있음
+  - `preventDefault()`로 스크롤링을 더이상 막지않는 단계로 들어서면 스크롤링을 풀어줌으로써 자연스럽게 스크롤링할 수 있게만듬
+
+## [event.defaultPrevented](https://ko.javascript.info/default-browser-action#ref-445)
+
+기본 동작을 막은 경우는 `event.defaultPrevented` 값이 `true` 이고, 그렇지 않은 경우는 `false` 입니다.
+
+버블링을 `stopPropagation()`으로 막으면 안되는 이유는 통계 자료수집등과같은 코드가 동작할 수 없기 때문임.
+
+ `stopPropagation()`으로 의도치않은 문제를 발생시키는 것보다 기본동작을 막고,`document`핸들러에서 기본 동작이 막혔는지 확인하는 코드를 작성하면 됨.
+
+
+
 ----
 
 <br>
 
 ### 2.5 커스텀 이벤트 디스패치
+
+event 이벤트를 생성할 수 있다.
+
+```javascript
+let event = new Event(type[, options]);
+```
+
+- `type` : `click`이나 커스텀이벤트를 작성할 수 있음
+- `option` : 버블링, 기본동작의 실행여부를 명시
+
+
+
+##### dispatchEvent
+
+- 생성한 `event`객체를 실행시켜줌
+- `elem.dispatchEvent(event)`
 
 ---
 
