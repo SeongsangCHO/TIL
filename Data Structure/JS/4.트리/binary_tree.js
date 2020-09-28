@@ -76,62 +76,78 @@ class BinarySearchTree {
     return curr;
   }
 
-  delete(data) { 
+  delete(data) {
     //자식노드가 없을 때
     //하나만 있을 때
     //둘 다 있을 때
     let curr = this.root;
-    let pos ='';
+    let pos = "";
     let pNode;
-    if (!this.root) { 
-      return '';
+    if (!this.root) {
+      return "";
     }
     while (curr) {
-      p = curr;
+      pNode = curr;
       if (data < curr.data) {
         curr = curr.left;
-        pos = 'LEFT';
+        pos = "LEFT";
       }
       if (data > curr.data) {
         curr = curr.right;
-        pos = 'RIGHT';
+        pos = "RIGHT";
       }
-      if (curr.data === data) { 
+      if (curr.data === data) {
         break;
       }
     }
     //p는 curr 부모노드
     //curr은 지워야할 노드
-    if (!curr.left && !curr.right) { //자식이 없을 때
+    if (!curr.left && !curr.right) {
+      //자식이 없을 때
       curr = null;
       return;
-    }
-    else if (curr.left && curr.right) { //자식이 둘다 있을 떄
+    } else if (curr.left && curr.right) {
+      //자식이 둘다 있을 떄
+      //curr이 삭제되어야할 노드
+
+      let maxNode = curr.left; //왼쪽자식중
+      while (maxNode.right) {
+        maxNode = maxNode.right;
+      } //제일 큰 값의 노드
       
-    }
-    else if (curr.left) {
-      pos == 'LEFT' ? pNode.left = curr.left : pNode.right = curr.left;
-    }
-    else if (curr.right) { 
-      pos == 'LEFT' ? pNode.left = curr.right : pNode.right = curr.right;
+      if (pos == "LEFT") {
+        pNode.left = maxNode;
+      }
+      if (pos == "RIGHT") {
+        pNode.right = maxNode;
+      }
+      //maxNode의 자식이 없는 경우
+      if (!maxNode.left) { 
+        curr = null;
+        return this;
+      }
+      //자식이 있는 경우
+      if (maxNode.left) {
+        curr.left.right = maxNode.left;
+      }
+    } else if (curr.left) {
+      pos == "LEFT" ? (pNode.left = curr.left) : (pNode.right = curr.left);
+    } else if (curr.right) {
+      pos == "LEFT" ? (pNode.left = curr.right) : (pNode.right = curr.right);
     }
   }
-
 }
 
 let bst = new BinarySearchTree();
 
-bst.insert(23);
-bst.insert(45);
 bst.insert(15);
-bst.insert(37);
+bst.insert(10);
+bst.insert(5);
+bst.insert(13);
 bst.insert(3);
-bst.insert(99);
-bst.insert(21);
-bst.insert(40);
-bst.insert(44);
-bst.insert(1);
-bst.insert(65);
+bst.insert(20);
+bst.insert(17);
+bst.insert(23);
 
+console.log(bst.delete(10));
 bst.preOrder(bst.root);
-console.log(bst.search(99));
