@@ -76,3 +76,71 @@
 #### 8. Reduce Exercise
 
   Sum up the instances of each of these
+
+
+
+```javascript
+
+//1번 
+let fifteen = inventors.filter((v, idx) => v.year >= 1500 && v.year < 1600);
+console.log(fifteen);
+
+//2번
+let fullName = inventors.map((v) => `${v.first} ${v.last}`);
+console.log(fullName);
+
+//3번 birthdate로 내림차순
+let sortedDesc = inventors.sort((a, b) => a.year - b.year); 
+console.log(sortedDesc);
+
+//4번
+let totalYear = inventors.reduce((prev, curr) => { return prev + (curr.passed - curr.year)},0)
+console.log(totalYear);
+
+//5번 수명 순서로 sort
+let sortedYear = inventors.sort((a, b) => {
+  return (a.passed - a.year) - (b.passed - b.year);
+});
+console.log(sortedYear);
+
+
+//6번
+
+// const category = document.querySelector('.mw-category');
+
+// const links = category.querySelectorAll('a');
+// console.log(links);
+
+// let linksTexts = Array.from(links)
+//   .map((v) => v.innerHTML)
+//   .filter((v) => v.includes('de'));
+
+
+//7번 last네임을 알파벳순으로 정렬
+
+let sortedAlphabet = people.sort((a, b) => {
+  let [last, first] = a.split(", ");
+  let [bLast, bFirst] = b.split(", ");
+  return bLast - last;
+});
+
+
+
+//8번 data의 갯수 세기
+
+let set = [...new Set(data)];
+console.log(set);
+
+let tranformation= data.reduce((obj, item) => { 
+  if (!obj[item])
+    obj[item] = 0;
+  obj[item]++;
+  return obj;
+}, {});
+
+console.log(tranformation);
+
+
+
+```
+
