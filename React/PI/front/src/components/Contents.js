@@ -1,7 +1,8 @@
-import React, { Component,useState } from "react";
+import React, { Component, useState } from "react";
 import "./css/Contents.css";
 import { Card, Col, Row } from "antd";
 import { Popover, Button } from "antd";
+import { PlusCircleTwoTone } from "@ant-design/icons";
 
 const content = (
   <div>
@@ -13,12 +14,8 @@ const content = (
 const dummy = {
   isClicked: true,
 };
-function moreInfoToggle() {
-  dummy.isClicked = !dummy.isClicked;
-  console.log(dummy.isClicked);
-}
-function SideBar() {
 
+function SideBar() {
   return (
     <div className="side-bar">
       사이드바
@@ -41,15 +38,30 @@ function SideBar() {
   );
 }
 
+function AddCategory({ isOpen }) { 
+  console.log(isOpen);
+  return (
+    <div>{isOpen}안녕</div>
+  );
+}
+
 function Contents() {
   const [toggle, setToggle] = useState(false);
-  const toggleShowing = () => setToggle(prevToggle => !toggle);
+  const [modalToggle, setModalToggle] = useState(false);
+  //여긴 커스텀훅으로 넣어도 될듯
+  const toggleShowing = () => setToggle((prevToggle) => !toggle);
+
+  const openModal = () => setModalToggle((prevToggle) => !modalToggle);
 
   return (
     <div className="content-wrapper">
       <div className="content">
         <div className="categories">
           카테고리
+          <button className="link-add-button" onClick={openModal}>
+            <span>+</span>
+          </button>
+          <AddCategory isOpen={modalToggle}/>
           <div>전체</div>
         </div>
         <div className="category">
@@ -63,7 +75,14 @@ function Contents() {
                 <Button className="btn">물</Button>
               </Popover>
             </div>
-            <div className="card">카드2</div>
+            <div className="card">
+              <Button className="info-button" onClick={toggleShowing}>
+                부가정보보기
+              </Button>
+              <Popover content={content} title="Title" trigger="click">
+                <Button className="btn">물</Button>
+              </Popover>
+            </div>
             <div className="card">카드3</div>
             <div className="card">카드4</div>
             <div className="card">카드5</div>
@@ -72,7 +91,7 @@ function Contents() {
         </div>
       </div>
       {toggle ? <SideBar /> : <div>클릭해제</div>}
-      {/* <Categories></Categories> 카테고리 */}
+      {/* 토글값에 따라 얻어올 데이터 달라져야함 */}
       {/* <CardSection><Card></CardSection> 카드섹션 */}
     </div>
   );
