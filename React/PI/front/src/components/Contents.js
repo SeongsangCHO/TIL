@@ -3,7 +3,6 @@ import "./css/Contents.css";
 import { Card, Col, Row } from "antd";
 import { Popover, Button } from "antd";
 import { PlusCircleTwoTone } from "@ant-design/icons";
-
 const content = (
   <div>
     <p>Content</p>
@@ -38,10 +37,19 @@ function SideBar() {
   );
 }
 
-function AddCategory({ isOpen }) { 
+function AddCategory({ isOpen }) {
   console.log(isOpen);
   return (
-    <div>{isOpen}안녕</div>
+    <>
+      {isOpen ? (
+        <div>
+          인풋
+           <input placeholder="카테고리명"></input>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 
@@ -61,7 +69,7 @@ function Contents() {
           <button className="link-add-button" onClick={openModal}>
             <span>+</span>
           </button>
-          <AddCategory isOpen={modalToggle}/>
+          <AddCategory isOpen={modalToggle} />
           <div>전체</div>
         </div>
         <div className="category">
