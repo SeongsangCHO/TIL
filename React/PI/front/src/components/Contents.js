@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import "./css/Contents.css";
 import { Card, Col, Row } from "antd";
 import { Popover, Button } from "antd";
@@ -10,7 +10,15 @@ const content = (
   </div>
 );
 
+const dummy = {
+  isClicked: true,
+};
+function moreInfoToggle() {
+  dummy.isClicked = !dummy.isClicked;
+  console.log(dummy.isClicked);
+}
 function SideBar() {
+
   return (
     <div className="side-bar">
       사이드바
@@ -34,6 +42,9 @@ function SideBar() {
 }
 
 function Contents() {
+  const [toggle, setToggle] = useState(false);
+  const toggleShowing = () => setToggle(prevToggle => !toggle);
+
   return (
     <div className="content-wrapper">
       <div className="content">
@@ -45,7 +56,9 @@ function Contents() {
           생필품
           <div className="card-section">
             <div className="card">
-              <div>물인가 뭔가이게</div>
+              <Button className="info-button" onClick={toggleShowing}>
+                부가정보보기
+              </Button>
               <Popover content={content} title="Title" trigger="click">
                 <Button className="btn">물</Button>
               </Popover>
@@ -58,7 +71,7 @@ function Contents() {
           </div>
         </div>
       </div>
-      <SideBar></SideBar>
+      {toggle ? <SideBar /> : <div>클릭해제</div>}
       {/* <Categories></Categories> 카테고리 */}
       {/* <CardSection><Card></CardSection> 카드섹션 */}
     </div>
