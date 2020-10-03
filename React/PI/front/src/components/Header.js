@@ -6,7 +6,7 @@ import "antd/dist/antd.css"
 function Header() {
   return (
     <div className="header-wrapper">
-      헤더부분
+      Link for you
       <Button type="primary">Button</Button>
     </div>
   );

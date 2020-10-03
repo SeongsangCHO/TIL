@@ -2,28 +2,39 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 } */
-.content-wrapper{
-width: 70vw;
+.content-wrapper {
+  margin: 0;
+  width: 75vw;
+  position: relative;
 }
 
-.content-wrapper > div > div > div{
-  padding:0px;
+.content-wrapper > div > div > div {
+  padding: 0px;
 }
-.card-section{
+.card-section {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-@media screen and (max-width: 400px) { 
-  .card-section{
+@media screen and (max-width: 400px) {
+  .content-wrapper {
+    width: 100%;
+    margin: 0px;
+  }
+
+  .card-section {
     display: grid;
     grid-template-columns: 3fr;
   }
- }
+}
 
- @media screen and (max-width: 768px) { 
-  .card-section{
+@media screen and (max-width: 768px) {
+  .content-wrapper {
+    width: 100%;
+    margin: 0px;
+  }
+  .card-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
- }
+}

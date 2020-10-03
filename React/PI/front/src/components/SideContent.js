@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import "./css/Sidecontent.css"
 
-function SideContent() {
+
+function Sidecontent() {
   return (
-    <div>
+    <div className="side-content-wrapper">
       hello
+       
     </div>
   );
 }
 
-export default SideContent;
+export default Sidecontent;

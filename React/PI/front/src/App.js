@@ -5,14 +5,15 @@ import Contents from "./components/Contents";
 
 import Header from "./components/Header";
 import Content from "./components/Content";
-import SideContent from "./components/SideContent";
+import Sidecontent from "./components/Sidecontent";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Content />
-      <SideContent />
+      <div className="body-wrapper">
+        <Content />
+      </div>
     </div>
   );
 }

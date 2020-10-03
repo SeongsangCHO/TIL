@@ -8,7 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import "./css/Content.css";
 import { Card } from "antd";
-
+import Sidecontent from "./Sidecontent";
+import { Button } from "antd";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -74,42 +75,49 @@ const linkList = [
         title: "음료수",
         link: "naver.com",
         price: "3000",
+        info: "그냥 추가정보",
       },
       {
         id: 2,
         title: "탄산수",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
       {
         id: 3,
         title: "쌀",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
       {
         id: 4,
         title: "샴푸",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
       {
         id: 5,
         title: "고기",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
       {
         id: 6,
         title: "햇반",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
       {
         id: 7,
         title: "고무",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
     ],
   },
@@ -120,12 +128,14 @@ const linkList = [
         title: "옷",
         link: "naver.com",
         price: "3000",
+        info: "그냥 추가정보",
       },
       {
         id: 2,
         title: "후드티",
         link: "coupang.com",
         price: "90000",
+        info: "그냥 추가정보",
       },
     ],
   },
@@ -146,9 +156,9 @@ function LinkCard({ obj }) {
             padding: 0,
           }}
         >
-          <p>{element.title}</p>
-          <p>Card content</p>
-          <p>Card content</p>
+          <p>{element.info}</p>
+          <p>{element.price}</p>
+          <a>{element.link}</a>
         </Card>
       ))}
     </div>
@@ -166,6 +176,7 @@ function Content() {
     <div className="content-wrapper">
       <div className={classes.root}>
         <AppBar position="static" color="default">
+          <Button type="primary">Category Add</Button>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -184,17 +195,17 @@ function Content() {
             ))}
             <Tab label="Item One" {...a11yProps(0)} />
             <Tab label="Item Two" {...a11yProps(1)} />
-            <div>추가버튼</div>
           </Tabs>
         </AppBar>
-        <div>링크추가버튼</div>
         {linkList?.map((obj, idx) => (
           <TabPanel key={idx} value={value} index={idx}>
             {obj[Object.keys(obj)].title}
             <LinkCard key={idx} obj={obj} />
           </TabPanel>
         ))}
+        <Button style={{width:100+'%'}}type="primary">Link Add</Button>
       </div>
+      <Sidecontent />
     </div>
   );
 }
