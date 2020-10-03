@@ -172,7 +172,7 @@ function Content() {
             indicatorColor="primary"
             textColor="primary"
             variant="scrollable"
-            scrollButtons="auto"
+            scrollButtons="on"
             aria-label="scrollable auto tabs example"
           >
             {categoryList?.map((v, idx) => (
@@ -184,11 +184,12 @@ function Content() {
             ))}
             <Tab label="Item One" {...a11yProps(0)} />
             <Tab label="Item Two" {...a11yProps(1)} />
+            <div>추가버튼</div>
           </Tabs>
         </AppBar>
-
+        <div>링크추가버튼</div>
         {linkList?.map((obj, idx) => (
-          <TabPanel  key={idx} value={value} index={idx}>
+          <TabPanel key={idx} value={value} index={idx}>
             {obj[Object.keys(obj)].title}
             <LinkCard key={idx} obj={obj} />
           </TabPanel>

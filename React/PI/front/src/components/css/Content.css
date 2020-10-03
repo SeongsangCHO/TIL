@@ -2,8 +2,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 } */
-
 .content-wrapper{
+width: 70vw;
+}
+
+.content-wrapper > div > div > div{
+  padding:0px;
 }
 .card-section{
   display: grid;
