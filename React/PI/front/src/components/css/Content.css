@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr 1fr;
 } */
 .content-wrapper {
-  margin: 0;
+  margin: 10px;
   width: 75vw;
   position: relative;
 }
