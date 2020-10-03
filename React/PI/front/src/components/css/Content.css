@@ -1,0 +1,25 @@
+/* .TabPanel{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+} */
+
+.content-wrapper{
+}
+.card-section{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 400px) { 
+  .card-section{
+    display: grid;
+    grid-template-columns: 3fr;
+  }
+ }
+
+ @media screen and (max-width: 768px) { 
+  .card-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+ }

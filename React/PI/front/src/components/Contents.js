@@ -3,6 +3,7 @@ import "./css/Contents.css";
 import { Card, Col, Row } from "antd";
 import { Popover, Button } from "antd";
 import { PlusCircleTwoTone } from "@ant-design/icons";
+
 const content = (
   <div>
     <p>Content</p>
@@ -13,6 +14,21 @@ const content = (
 const dummy = {
   isClicked: true,
 };
+
+const categoryDummy = [
+  {
+    id: 1,
+    title: '생필품'
+  },
+  {
+    id: 2,
+    title: '옷'
+  },
+  {
+    id: 3,
+    title: '강의'
+  }
+]
 
 function SideBar() {
   return (
@@ -36,15 +52,16 @@ function SideBar() {
     </div>
   );
 }
-
+//카테고리명 추가 - DB구성해야함
 function AddCategory({ isOpen }) {
   console.log(isOpen);
   return (
     <>
       {isOpen ? (
         <div>
-          인풋
-           <input placeholder="카테고리명"></input>
+          카테고리추가
+          <input placeholder="카테고리명"></input>
+          <button>추가버튼</button>
         </div>
       ) : (
         ""
@@ -65,6 +82,7 @@ function Contents() {
     <div className="content-wrapper">
       <div className="content">
         <div className="categories">
+          
           카테고리
           <button className="link-add-button" onClick={openModal}>
             <span>+</span>
