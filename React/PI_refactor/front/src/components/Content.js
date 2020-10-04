@@ -203,29 +203,32 @@ const CardTest = styled.div`
 `;
 //링크카드가 각각 nav link가 되고,
 //이에 따른 right Section에 오는게 tab.pane이 되어야함
-
+//defalut키는 없어도됨.
 function LinkCard({ element }) {
   const { id, title, price, link, info } = element;
   return (
     <div className="link-card">
+      
       <div className="card-title">{element.title}</div>
       <div className="cart-content">{element.link}</div>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-        <Nav variant="pills" className="flex-column">
-          <Nav.Item>
-            <Nav.Link eventKey="first">Tab 1</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="second">Tab 2</Nav.Link>
-          </Nav.Item>
-        </Nav>
-
-        <Tab.Content>
-          <Tab.Pane eventKey="first">에휴</Tab.Pane>
-          <Tab.Pane eventKey="second">시베</Tab.Pane>
-        </Tab.Content>
-      </Tab.Container>
     </div>
+  );
+}
+
+//반복문으로 링크만들어야할듯
+function TestSection() {
+  return (
+    <>
+      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+      </Tab.Container>
+    </>
+  );
+}
+function Test() {
+  return (
+    <Nav.Item>
+
+    </Nav.Item>
   );
 }
 function TabSection() {
@@ -236,7 +239,10 @@ function TabSection() {
           // 이부분 카드형식으로 묶기
           <Tab.Pane eventKey={idx} unmountOnExit="true">
             <LinkCardWrapper>
-              <LinkCard element={element} />
+              <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                <LinkCard element={element} />
+                {/* <Test element={element} /> */}
+              </Tab.Container>
             </LinkCardWrapper>
           </Tab.Pane>
         ))
@@ -250,6 +256,7 @@ function LinkContent() {
     <Tab.Content>
       <TabWrapper>
         <TabSection />
+        {/* <TestSection /> */}
       </TabWrapper>
     </Tab.Content>
   );
