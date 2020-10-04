@@ -9,7 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import TabContainer from "react-bootstrap/TabContainer";
-import './Content.css'
+import "./css/Content.css";
 
 const categoryList = [
   {
@@ -99,12 +99,47 @@ const linkList = [
     ],
   },
 ];
-
+const crawlingList = [
+  {
+    음료수: [
+      {
+        id: 1,
+        link: "www.머시깽이링크.com",
+        price: "뭔가격",
+      },
+      {
+        id: 2,
+        link: "www.코카콜라.com",
+        price: "만언",
+      },
+      {
+        id: 3,
+        link: "www.펩시.com",
+        price: "십원",
+      },
+    ],
+    탄산수: [
+      {
+        id: 1,
+        link: "www.탄산수.com",
+        price: "탄산수가격",
+      },
+    ],
+    쌀: [],
+    샴푸: [],
+    고기: [],
+    햇반: [],
+    고무: [],
+    옷: [],
+    후드티: [],
+  },
+];
 //styled component color은 hex code
 const ContentWrapper = styled.div`
   display: flex;
   background: #fff;
   flex-direction: row;
+  padding: 15px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -119,7 +154,21 @@ const LeftSection = styled.div`
     flex: 1;
   }
 `;
+const TabContent = styled.div`
+  display: flex;
+  flex-direction: row;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+const TabCateorySection = styled.div`
+  flex: 1;
+`;
+const TabCardSection = styled.div`
+  padding-left: 15px;
+  flex: 7;
+`;
 const RightSection = styled.div`
   flex: 1;
   background: #00bb00;
@@ -130,9 +179,9 @@ const RightSection = styled.div`
 `;
 
 const TabWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
-// grid-template-columns: 1fr 1fr 1fr;
 
 const LinkCardWrapper = styled.div`
   flex: 1;
@@ -152,9 +201,32 @@ function CategoryTab() {
 const CardTest = styled.div`
   display: inline;
 `;
+//링크카드가 각각 nav link가 되고,
+//이에 따른 right Section에 오는게 tab.pane이 되어야함
 
-function LinkCard() { 
-  return()
+function LinkCard({ element }) {
+  const { id, title, price, link, info } = element;
+  return (
+    <div className="link-card">
+      <div className="card-title">{element.title}</div>
+      <div className="cart-content">{element.link}</div>
+      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+        <Nav variant="pills" className="flex-column">
+          <Nav.Item>
+            <Nav.Link eventKey="first">Tab 1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="second">Tab 2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+        <Tab.Content>
+          <Tab.Pane eventKey="first">에휴</Tab.Pane>
+          <Tab.Pane eventKey="second">시베</Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
+    </div>
+  );
 }
 function TabSection() {
   return (
@@ -162,8 +234,10 @@ function TabSection() {
       {linkList?.map((obj, idx) =>
         obj[Object.keys(obj)].map((element, id) => (
           // 이부분 카드형식으로 묶기
-          <Tab.Pane eventKey={idx} unmountOnExit="true" >
-            <LinkCardWrapper>{element.price} 카드형식이 들어갈곳</LinkCardWrapper>
+          <Tab.Pane eventKey={idx} unmountOnExit="true">
+            <LinkCardWrapper>
+              <LinkCard element={element} />
+            </LinkCardWrapper>
           </Tab.Pane>
         ))
       )}
@@ -180,21 +254,20 @@ function LinkContent() {
     </Tab.Content>
   );
 }
+
 function Content() {
   return (
     <ContentWrapper>
       <LeftSection>
-        CategorySection
-        <Tab.Container id="tab" defaultActiveKey="0" >
-          <Row>
-            <Col sm={2}>
+        <Tab.Container id="tab" defaultActiveKey="0">
+          <TabContent>
+            <TabCateorySection>
               <CategoryTab />
-            </Col>
-
-            <Col sm={10}>
+            </TabCateorySection>
+            <TabCardSection>
               <LinkContent />
-            </Col>
-          </Row>
+            </TabCardSection>
+          </TabContent>
         </Tab.Container>
       </LeftSection>
       <RightSection>RightSection</RightSection>
