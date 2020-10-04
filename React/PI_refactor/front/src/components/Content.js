@@ -11,6 +11,48 @@ import Button from "react-bootstrap/Button";
 import TabContainer from "react-bootstrap/TabContainer";
 import "./css/Content.css";
 
+const dummy = [
+  {
+    생필품: [
+      {
+        음료수: {
+          link: "naver",
+          price: "3000",
+          info: "걍 정보,,",
+          크롤링데이터: {
+            link: "크롤링네이버",
+            price: "크롤링가갹",
+            info: "크롤링정보",
+          },
+        },
+        탄산수: {
+          link: "쿠팡",
+          price: "50050",
+          info: "더미데이터의 중요성",
+          크롤링데이터: {
+            link: "크롤링탄산수",
+            price: "크롤링탄산수가격",
+            info: "크롤링탄산수정보",
+          },
+        },
+      },
+    ],
+    옷: [
+      {
+        후드티: {
+          link: "더미데이터 ㅠㅠ",
+          price: "억만금을 줘야해",
+          info: "그치..?",
+        },
+        패딩: {
+          link: "패딩스",
+          price: "백원",
+          info: "좋음",
+        },
+      },
+    ],
+  },
+];
 const categoryList = [
   {
     id: 1,
@@ -208,7 +250,6 @@ function LinkCard({ element }) {
   const { id, title, price, link, info } = element;
   return (
     <div className="link-card">
-      
       <div className="card-title">{element.title}</div>
       <div className="cart-content">{element.link}</div>
     </div>
@@ -219,17 +260,23 @@ function LinkCard({ element }) {
 function TestSection() {
   return (
     <>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-      </Tab.Container>
+      <Tab.Pane eventKey={0} unmountOnExit="true">
+        <LinkCardWrapper>
+          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            {linkList?.map((obj, idx) =>
+              obj[Object.keys(obj)].map((element, id) => (
+                // 이부분 카드형식으로 묶기
+                <LinkCard element={element} />
+              ))
+            )}
+          </Tab.Container>
+        </LinkCardWrapper>
+      </Tab.Pane>
     </>
   );
 }
 function Test() {
-  return (
-    <Nav.Item>
-
-    </Nav.Item>
-  );
+  return <Nav.Item></Nav.Item>;
 }
 function TabSection() {
   return (
@@ -255,8 +302,8 @@ function LinkContent() {
   return (
     <Tab.Content>
       <TabWrapper>
-        <TabSection />
-        {/* <TestSection /> */}
+        {/* <TabSection /> */}
+        <TestSection />
       </TabWrapper>
     </Tab.Content>
   );
