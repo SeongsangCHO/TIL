@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
@@ -8,6 +8,9 @@ import Card from "react-bootstrap/Card";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
+import TabContainer from "react-bootstrap/TabContainer";
+import './Content.css'
+
 const categoryList = [
   {
     id: 1,
@@ -126,12 +129,12 @@ const RightSection = styled.div`
   }
 `;
 
-const CardWrapper = styled.div`
+const TabWrapper = styled.div`
   display: flex;
 `;
 // grid-template-columns: 1fr 1fr 1fr;
 
-const LinkCard = styled.div`
+const LinkCardWrapper = styled.div`
   flex: 1;
 `;
 function CategoryTab() {
@@ -145,14 +148,22 @@ function CategoryTab() {
     </Nav>
   );
 }
-function TabCard() {
+
+const CardTest = styled.div`
+  display: inline;
+`;
+
+function LinkCard() { 
+  return()
+}
+function TabSection() {
   return (
     <>
       {linkList?.map((obj, idx) =>
         obj[Object.keys(obj)].map((element, id) => (
           // 이부분 카드형식으로 묶기
-          <Tab.Pane eventKey={idx}>
-              <LinkCard>{element.price} 카드형식이 들어갈곳</LinkCard>
+          <Tab.Pane eventKey={idx} unmountOnExit="true" >
+            <LinkCardWrapper>{element.price} 카드형식이 들어갈곳</LinkCardWrapper>
           </Tab.Pane>
         ))
       )}
@@ -163,9 +174,9 @@ function TabCard() {
 function LinkContent() {
   return (
     <Tab.Content>
-      <CardWrapper>
-        <TabCard />
-      </CardWrapper>
+      <TabWrapper>
+        <TabSection />
+      </TabWrapper>
     </Tab.Content>
   );
 }
@@ -174,7 +185,7 @@ function Content() {
     <ContentWrapper>
       <LeftSection>
         CategorySection
-        <Tab.Container id="left-tabs-example" defaultActiveKey="0">
+        <Tab.Container id="tab" defaultActiveKey="0" >
           <Row>
             <Col sm={2}>
               <CategoryTab />
