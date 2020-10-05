@@ -9,56 +9,130 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import TabContainer from "react-bootstrap/TabContainer";
-import "./css/Content.css";
+import "./css/Contentc.css";
 
-const dummy = [
+const dummy =
+  //사용자가 추가할 category
   {
-    생필품: [
+    category: [
       {
-        음료수: {
-          link: "naver",
-          price: "3000",
-          info: "걍 정보,,",
-          크롤링데이터: {
-            link: "크롤링네이버",
-            price: "크롤링가갹",
-            info: "크롤링정보",
+        생필품: [
+          {
+            title: "생수",
+            link: "생수 링크",
+            price: "생수 가격",
+            크롤링데이터: {
+              크롤링제목: "생수 크롤링제목",
+              크롤링링크: "생수 크롤링 링크",
+              크롤링가격: "생수 크롤링가격",
+            },
           },
-        },
-        탄산수: {
-          link: "쿠팡",
-          price: "50050",
-          info: "더미데이터의 중요성",
-          크롤링데이터: {
-            link: "크롤링탄산수",
-            price: "크롤링탄산수가격",
-            info: "크롤링탄산수정보",
+          {
+            title: "탄산수",
+            link: "탄산수 링크",
+            price: "탄산수  가격",
+            크롤링데이터: {
+              크롤링제목: "탄산수 크롤링제목",
+              크롤링링크: "탄산수 크롤링 링크",
+              크롤링가격: "탄산수 크롤링가격",
+            },
           },
-        },
+        ],
+      },
+      {
+        옷: [
+          {
+            title: "후드티",
+            link: "후드티 링크",
+            price: "후드티 가격",
+            크롤링데이터: {
+              크롤링제목: "후드티 크롤링제목",
+              크롤링링크: "후드티 크롤링 링크",
+              크롤링가격: "후드티 크롤링가격",
+            },
+          },
+          {
+            title: "자켓",
+            link: "자켓 링크",
+            price: "자켓  가격",
+            크롤링데이터: {
+              크롤링제목: "자켓 크롤링제목",
+              크롤링링크: "자켓 크롤링 링크",
+              크롤링가격: "자켓 크롤링가격",
+            },
+          },
+        ],
       },
     ],
-    옷: [
-      {
-        후드티: {
-          link: "더미데이터 ㅠㅠ",
-          price: "억만금을 줘야해",
-          info: "그치..?",
-        },
-        패딩: {
-          link: "패딩스",
-          price: "백원",
-          info: "좋음",
-        },
-      },
-    ],
-  },
-];
+  };
 
+function CategoryTab() {
+  return (
+    <Nav variant="pills" className="flex-column">
+      {dummy.category.map((cate, idx) => (
+        <Nav.Item>
+          <Nav.Link eventKey={Object.keys(cate)}>{Object.keys(cate)}</Nav.Link>
+        </Nav.Item>
+      ))}
+    </Nav>
+  );
+}
 
+function CrawlingCard({ obj }) {
+  return (
+    <>
+      {obj[Object.keys(obj)]?.map((element, id) => (
+        <Tab.Pane eventKey={element.title} key={element.title}>
+          <div>{element.크롤링데이터.크롤링제목}</div>
+        </Tab.Pane>
+      ))}
+    </>
+  );
+}
+
+function CardTab({ obj }) {
+  return (
+    <>
+      <Tab.Container>
+        <Nav variant="pills" className="flex-column">
+          <Tab.Content>
+            {obj[Object.keys(obj)]?.map((element) => (
+              <Nav.Item>
+                <Nav.Link eventKey={element.title}>{element.title}</Nav.Link>
+              </Nav.Item>
+            ))}
+            <CrawlingCard obj={obj} />
+          </Tab.Content>
+        </Nav>
+      </Tab.Container>
+    </>
+  );
+}
+function LinkCard() {
+  return (
+    <Tab.Content defaultActiveKey="0">
+      {dummy?.category?.map((cate, idx) => (
+        <Tab.Pane eventKey={Object.keys(cate)} key={idx}>
+          <CardTab obj={cate} />
+        </Tab.Pane>
+      ))}
+      <Tab.Pane eventKey="second">b</Tab.Pane>
+    </Tab.Content>
+  );
+}
 function Contentc() {
   return (
-    <div>
-      다시짜자
+    <div className="content-wrapper">
+      <Tab.Container id="left-tabs" defaultActiveKey="first">
+        <Row>
+          <Col sm={3}>
+            <CategoryTab />
+          </Col>
+          <Col sm={9}>
+            <LinkCard />
+          </Col>
+        </Row>
+      </Tab.Container>
     </div>
   );
 }
