@@ -16,6 +16,7 @@ function encodeText(str) {
 //크롤링에 인자전달하는 방법
 //db에서 select한 결과를 갖고 크롤링을 해야할듯
 const crawler = async () => {
+  //배포시 headless true로 설정해야함.
   const browser = await puppeteer.launch({ headless: false });
   await browser.userAgent(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
@@ -26,45 +27,91 @@ const crawler = async () => {
   });
   //링크 title을 요청받아와서 사용
   let searchText = "물";
+  //searchText로 db에 저장하고
+  //이를 외래키로 지정해서 하위 데이터들을 추가시켜주어야하네..a1
 
   let encodedSearchText = encodeText(searchText);
   await page.setDefaultNavigationTimeout(0);
   await page.goto(
-    `http://www.ssg.com/search.ssg?target=all&query=${searchText}`,
+    `http://www.ssg.com/search.ssg?target=all&query=${searchText}&page=1`,
     // http://www.ssg.com/search.ssg?target=all&query=%EB%AC%BC&sort=sale 판매량순
+    // http://www.ssg.com/search.ssg?target=all&query=%EB%AC%BC&page=1
+    //page로 넘기면 검색가능
     { waitUntil: "networkidle0" }
   );
 
   const ulContentSelector = `#divProductImg > #idProductImg li`;
+  let productData = [];
 
   const liLength = await page.evaluate((SELECTOR) => {
     //page당 아이템 갯수 출력 80개
     return document.querySelectorAll(SELECTOR).length;
   }, ulContentSelector);
+  if (liLength <= 0) {
+    //li 태그의 길이가 없다 == 검색결과 없을때 크롤링종료
+    console.log("ssg_ li length is zero");
+  } else {
+    //마지막 페이지 번호를 구함
+    const lastPageNumber = await page.$eval(`.btn_last`, (element) => {
+      return element.getAttribute("data-filter-value").split("=")[1];
+    });
+    console.log(lastPageNumber);
 
-  let productData = [];
-  for (let idx = 1; idx <= liLength; idx++) {
-    let productObj = {};
-    productObj["title"] = await page.$eval(
-      `#idProductImg li:nth-child(${idx}) div.title a em.tx_ko`,
-      (element) => element.textContent
-    );
+    try {
+      //첫페이지 ~ 3페이지까지 크롤링
+      for (
+        let pageNumber = 2;
+        pageNumber <= lastPageNumber - (lastPageNumber - 3);
+        pageNumber++
+      ) {
+        for (let idx = 1; idx <= liLength; idx++) {
+          let productObj = {};
+          productObj["priority"] = idx + (pageNumber - 2) * liLength;
 
-    productObj["price"] = await page.$eval(
-      `#idProductImg li:nth-child(${idx}) em.ssg_price`,
-      (element) => element.textContent + "원"
-    );
-    productObj["link"] = await page.$eval(
-      `#idProductImg li:nth-child(${idx}) div.title a`,
-      (element) => element.href
-    );
-    productData.push(productObj);
+          productObj["title"] = await page.$eval(
+            `#idProductImg li:nth-child(${idx}) div.title a em.tx_ko`,
+            (element) => element.textContent
+          );
+
+          productObj["price"] = await page.$eval(
+            `#idProductImg li:nth-child(${idx}) em.ssg_price`,
+            (element) => element.textContent + "원"
+          );
+          productObj["link"] = await page.$eval(
+            `#idProductImg li:nth-child(${idx}) div.title a`,
+            (element) => element.href
+          );
+          productData.push(productObj);
+        }
+        await page.goto(
+          `http://www.ssg.com/search.ssg?target=all&query=${searchText}&page=${pageNumber}`,
+          { waitUntil: "networkidle0" }
+        );
+      }
+    } catch (error) {
+      if (error) console.error(error);
+    }
   }
-  console.log(productData);
 
+  dataInsert(productData);
   console.log("Load 끝");
   await page.close(); // 페이지 닫기
   await browser.close(); // 브라우저 닫기
 };
+
+function dataInsert(crawlerData) {
+  crawlerData.forEach((obj) => {
+
+    db.query(
+      `INSERT INTO product(title, price, link, priority)
+    VALUES(?,?,?,?)`,
+      [obj.title, obj.price, obj.link, obj.priority],
+      function (error, result) {
+        if (error) console.error(error);
+      }
+    );
+
+  });
+}
 
 module.exports = crawler;
