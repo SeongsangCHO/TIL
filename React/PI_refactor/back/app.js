@@ -1,10 +1,13 @@
 let express = require("express");
 let path = require("path");
+let crawler = require('./crawler/testcrawler');
 
 const app = express();
 const port = process.env.PORT || 80;
 
+
 let testAPIRouter = require("./routes/testAPI");
+
 //템플릿엔진 ejs 설정 __dirname +'views'랑 같음
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -18,6 +21,12 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
   res.render("../views/index", { title: "api page" });
 });
+
+
+app.get('/craw', (req, res) => {
+  crawler();
+});
+
 app.listen(port, () => {
   console.log(`server is listening at localhost:${port}`);
 });
