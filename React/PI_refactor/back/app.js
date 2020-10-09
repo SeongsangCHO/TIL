@@ -1,6 +1,6 @@
 let express = require("express");
 let path = require("path");
-let crawler = require("./crawler/testcrawler");
+let ssgCrawler = require("./crawler/ssgCrawler");
 let coupangCrawler = require("./crawler/coupangCrawler");
 let multi = require("./crawler/multi");
 let cluster = require("./crawler/cluster");
@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 80;
 
 let testAPIRouter = require("./routes/testAPI");
+const { start } = require("repl");
 
 //템플릿엔진 ejs 설정 __dirname +'views'랑 같음
 app.set("views", path.join(__dirname, "views"));
@@ -36,10 +37,12 @@ app.get("/api", (req, res) => {
 //크롤러 데이터를 db에 저장함
 //
 app.get("/craw", (req, res) => {
-  let status = "크롤러수행중";
-  crawler();
+  let status = "쓱 ,쿠팡 크롤러";
 
-  res.send(status);
+  ssgCrawler();
+  coupangCrawler();
+
+  res.send("쓱, 쿠팡 크롤링 수행");
 });
 app.get("/coupang", (req, res) => {
   let status = "쿠팡크롤러";

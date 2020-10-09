@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 let db = require("../config/db_config");
 let iconv = require("iconv-lite");
+var assert = require("assert");
 
 function encodeText(str) {
   let euckrObj = iconv.encode(str, "euc-kr"); //스트링을 euc-kr로 인코딩
@@ -15,7 +16,8 @@ function encodeText(str) {
 //품목기반으로 검색한 크롤링을 해야하는데,
 //크롤링에 인자전달하는 방법
 //db에서 select한 결과를 갖고 크롤링을 해야할듯
-const crawler = async () => {
+const ssgCrawler = async () => {
+  let start = await new Date().getTime();
   //배포시 headless true로 설정해야함.
   //에러핸들링 추가해야함., 블록스코프에 맞춰서
   const browser = await puppeteer.launch({ headless: false });
@@ -109,14 +111,14 @@ const crawler = async () => {
   }
 
   dataInsert(productData);
-  console.log("Load 끝");
+  let end = await new Date().getTime();
+  console.log("쓱 크롤러 걸린시간 : " + (end - start) / 1000);
+
   await page.close(); // 페이지 닫기
   await browser.close(); // 브라우저 닫기
 };
 
 function dataInsert(crawlerData) {
-  console.log(crawlerData);
-
   crawlerData.forEach((obj) => {
     // db.query(
     //   `INSERT INTO product(title, price, link, priority)
@@ -129,4 +131,4 @@ function dataInsert(crawlerData) {
   });
 }
 
-module.exports = crawler;
+module.exports = ssgCrawler;
