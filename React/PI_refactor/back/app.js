@@ -1,7 +1,9 @@
 let express = require("express");
 let path = require("path");
 let crawler = require("./crawler/testcrawler");
+let coupangCrawler = require("./crawler/coupangCrawler");
 let multi = require("./crawler/multi");
+let cluster = require("./crawler/cluster");
 
 const app = express();
 const port = process.env.PORT || 80;
@@ -39,11 +41,22 @@ app.get("/craw", (req, res) => {
 
   res.send(status);
 });
-
-app.get("/multi", (req, res) => { 
+app.get("/coupang", (req, res) => {
+  let status = "쿠팡크롤러";
+  coupangCrawler();
+  res.send(status);
+});
+app.get("/multi", (req, res) => {
   let status = "멀티플 크롤러";
   multi();
-})
+  res.send(status);
+});
+
+app.get("/cluster", (req, res) => {
+  let status = "클러스터 크롤러";
+  cluster();
+  res.send(status);
+});
 app.listen(port, () => {
   console.log(`server is listening at localhost:${port}`);
 });
