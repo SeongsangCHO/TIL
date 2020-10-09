@@ -17,6 +17,7 @@ function encodeText(str) {
 //db에서 select한 결과를 갖고 크롤링을 해야할듯
 const crawler = async () => {
   //배포시 headless true로 설정해야함.
+  //에러핸들링 추가해야함., 블록스코프에 맞춰서
   const browser = await puppeteer.launch({ headless: false });
   await browser.userAgent(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
@@ -25,19 +26,26 @@ const crawler = async () => {
   await page.setExtraHTTPHeaders({
     "accept-charset": "euc-kr", //한글 깨지는 문제를 해결해보려고 charset을 바꿔봤는데 해결안됨
   });
+  //이미지 로딩 블락, 속도향상
+  await page.setRequestInterception(true);
+  page.on("request", (request) => {
+    if (request.resourceType() === "image") request.abort();
+    else request.continue();
+  });
   //링크 title을 요청받아와서 사용
-  let searchText = "물";
+  let searchText = "쌀 2kg";
   //searchText로 db에 저장하고
   //이를 외래키로 지정해서 하위 데이터들을 추가시켜주어야하네..a1
 
   let encodedSearchText = encodeText(searchText);
   await page.setDefaultNavigationTimeout(0);
+  //동시에 여러 페이지 newPage로 띄워서  promise.all로 각각 페이지를 모듈로 나눠서 크롤링실행해야겠다.
   await page.goto(
     `http://www.ssg.com/search.ssg?target=all&query=${searchText}&page=1`,
     // http://www.ssg.com/search.ssg?target=all&query=%EB%AC%BC&sort=sale 판매량순
     // http://www.ssg.com/search.ssg?target=all&query=%EB%AC%BC&page=1
     //page로 넘기면 검색가능
-    { waitUntil: "networkidle0" }
+    { waitUntil: "networkidle2" }
   );
 
   const ulContentSelector = `#divProductImg > #idProductImg li`;
@@ -85,7 +93,7 @@ const crawler = async () => {
         }
         await page.goto(
           `http://www.ssg.com/search.ssg?target=all&query=${searchText}&page=${pageNumber}`,
-          { waitUntil: "networkidle0" }
+          { waitUntil: "networkidle2" }
         );
       }
     } catch (error) {
@@ -100,17 +108,17 @@ const crawler = async () => {
 };
 
 function dataInsert(crawlerData) {
+  console.log(crawlerData);
+
   crawlerData.forEach((obj) => {
-
-    db.query(
-      `INSERT INTO product(title, price, link, priority)
-    VALUES(?,?,?,?)`,
-      [obj.title, obj.price, obj.link, obj.priority],
-      function (error, result) {
-        if (error) console.error(error);
-      }
-    );
-
+    // db.query(
+    //   `INSERT INTO product(title, price, link, priority)
+    // VALUES(?,?,?,?)`,
+    //   [obj.title, obj.price, obj.link, obj.priority],
+    //   function (error, result) {
+    //     if (error) console.error(error);
+    //   }
+    // );
   });
 }
 

@@ -1,6 +1,7 @@
 let express = require("express");
 let path = require("path");
 let crawler = require("./crawler/testcrawler");
+let multi = require("./crawler/multi");
 
 const app = express();
 const port = process.env.PORT || 80;
@@ -39,6 +40,10 @@ app.get("/craw", (req, res) => {
   res.send(status);
 });
 
+app.get("/multi", (req, res) => { 
+  let status = "멀티플 크롤러";
+  multi();
+})
 app.listen(port, () => {
   console.log(`server is listening at localhost:${port}`);
 });
