@@ -1,13 +1,9 @@
 const puppeteer = require("puppeteer");
-const cheerio = require("cheerio");
 let db = require("../config/db_config");
-let iconv = require("iconv-lite");
-var assert = require("assert");
-const { pathToFileURL } = require("url");
 
 const coupangCrawler = async () => {
   let start = await new Date().getTime();
-  //Common part//
+  //Common part start//
   const browser = await puppeteer.launch({ headless: true });
   await browser.userAgent(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
@@ -33,7 +29,7 @@ const coupangCrawler = async () => {
   //searchText로 db에 저장하고
   //이를 외래키로 지정해서 하위 데이터들을 추가시켜주어야하네..a1
 
-  //시간제한 없애기
+  //시간제한 없애기 start//
   try {
     await page.setRequestInterception(true);
 
@@ -47,10 +43,11 @@ const coupangCrawler = async () => {
   } catch (error) {
     console.error(error);
   }
+  //시간제한 없애기 end //
 
-  //Common part//
+  //Common part  end//
 
-  // lastPage넘버 set
+  // lastPage넘버 set start //
   try {
     await page.waitForSelector("div.search-pagination a.btn-last.disabled");
   } catch (error) {
@@ -61,10 +58,11 @@ const coupangCrawler = async () => {
     "div.search-pagination a.btn-last.disabled",
     (element) => element.textContent
   );
+  // lastPage넘버 set end//
 
   console.log(lastPageNumber);
 
-  //crawling part
+  //crawling part start//
   try {
     let productData = [];
     let priority = 1;
@@ -81,15 +79,13 @@ const coupangCrawler = async () => {
           { waitUntil: "networkidle2" }
         );
       }
-      await page.addScriptTag({
-        url: "https://code.jquery.com/jquery-3.2.1.min.js",
-      });
       //페이지당 광고 삭제
       await page.evaluate(() => {
-        $(`.search-product__ad-badge`).remove();
+        let badge = document.querySelector(".search-product__ad-badge");
+        if (badge) badge.remove();
       });
 
-      //페이지당 상품 갯수
+      //페이지당 상품 갯수 => 페이지당 광고를 삭제하고나서 해당 페이지에 존재하는 상품갯수
       let productAmountPerPage = await page.evaluate(() => {
         return document.querySelectorAll(`#productList li`).length;
       });
@@ -97,6 +93,8 @@ const coupangCrawler = async () => {
       //요소가 존재하는지 확인해야함- > 에러체크
       for (let idx = 1; idx <= productAmountPerPage; idx++) {
         let productObj = {};
+
+        //우선순위, 제목, 가격, link 를 찾아서 추가해주는 part, TODO : unit-price도 추가해야할지 고민
         productObj["priority"] = priority++;
         productObj["title"] = await page.$eval(
           `#productList li:nth-child(${idx}) div.name`,
@@ -116,15 +114,19 @@ const coupangCrawler = async () => {
             return element.href || "";
           }
         );
+        //데이터가 존재할때만 추가함.
         if (productObj.title && productObj.price && productObj.link)
           productData.push(productObj);
+        //존재하지않으면 우선순위 증가하지 않도록 --
         else priority--;
-        console.log(productObj);
       }
     }
   } catch (error) {
     console.error(error);
   }
+
+  //crawling part end //
+
   let end = await new Date().getTime();
   console.log("쿠팡크롤러 time :" + (end - start) / 1000);
 

@@ -1,8 +1,6 @@
 const puppeteer = require("puppeteer");
-const cheerio = require("cheerio");
 let db = require("../config/db_config");
 let iconv = require("iconv-lite");
-var assert = require("assert");
 
 function encodeText(str) {
   let euckrObj = iconv.encode(str, "euc-kr"); //스트링을 euc-kr로 인코딩
@@ -119,7 +117,6 @@ const ssgCrawler = async () => {
 };
 
 function dataInsert(crawlerData) {
-  
   crawlerData.forEach((obj) => {
     // db.query(
     //   `INSERT INTO product(title, price, link, priority)
