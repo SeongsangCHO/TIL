@@ -1,22 +1,27 @@
 import axios from "axios";
 const localURL = "http://localhost/register";
 
+export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
+export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
+export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
-
-export const REGISTER_DATA = 'REGISTER_DATA';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-
-
-export const registerUser = async () => {
-  let data = {
-    user_id: "front",
-    user_password: 3456,
+export function registerRequest(data) {
+  console.log('액션 호출');
+  console.log(data);
+  return {
+    type: SIGN_UP_REQUEST,
+    payload : data,
   };
-
-};
-
-
-export const registerSucceeded =() => {}
-
-export const registerFailed =() => {}
+}
+export function registerSuccess(data) {
+  return {
+    type: SIGN_UP_SUCCESS,
+    payload : data,
+  };
+}
+export function registerFailure(error) {
+  return {
+    type: SIGN_UP_FAILURE,
+    error,
+  };
+}

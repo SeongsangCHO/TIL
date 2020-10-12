@@ -6,13 +6,14 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 import registerReducer from "./reducers/registerReducer";
 import createLogger from "redux-logger";
-import createSagaMiddleware, { END } from "redux-saga";
-import rootSaga from './saga';
-
-
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./saga";
+const initialState = {
+  data:{}
+};
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [thunk, logger,sagaMiddleware]; //thunk (비동기작업을 돕는 라이브러리)를 넣음
+  const middlewares = [logger, sagaMiddleware]; //thunk (비동기작업을 돕는 라이브러리)를 넣음
   //배포용과 개발용의 미들웨어 차이를 두기 위함
   const enhancer =
     process.env.NODE_ENV === "production"
@@ -22,7 +23,8 @@ const configureStore = () => {
   const store = createStore(
     combineReducers({
       registerReducer,
-    }),
+  }),
+    initialState,
     enhancer
   );
   sagaMiddleware.run(rootSaga);

@@ -4,12 +4,17 @@ let ssgCrawler = require("./crawler/ssgCrawler");
 let coupangCrawler = require("./crawler/coupangCrawler");
 let multi = require("./crawler/multi");
 let cluster = require("./crawler/cluster");
+var cors = require('cors')
+const accecptURL = 'http:/localhost:3000'; 
 
 const app = express();
-const port = process.env.PORT || 80;
+app.use(cors());
 
+const port = process.env.PORT || 80;
 let testAPIRouter = require("./routes/testAPI");
 const { start } = require("repl");
+
+
 
 //템플릿엔진 ejs 설정 __dirname +'views'랑 같음
 app.set("views", path.join(__dirname, "views"));
@@ -26,8 +31,9 @@ app.get("/api", (req, res) => {
 });
 
 
-app.post("/register", (req, res, next) => {
+app.post("/register",  cors(accecptURL),(req, res, next) => {
   console.log(req.body);
+  res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
   res.render("../views/userRegister", {user_data: req.body});
 });
 //클릭시 처리를 어떻게 해야할까
