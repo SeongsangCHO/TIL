@@ -1,22 +1,21 @@
 import React from "react";
-
-
-function Jumbotron() { 
-  return (
-    <div className="jumbotron">
-      Jumbotron
-    </div>
-  );
+import { NavLink } from "react-router-dom";
+function Jumbotron() {
+  return <div className="jumbotron">Jumbotron</div>;
 }
 
 function Header() {
   return (
     <div className="header-wrapper">
-      Header
-       <Jumbotron/>
+      <NavLink className="navbar-brand" to={"/"}>
+        Header
+      </NavLink>
+      <NavLink className="navbar-brand" to={"/register"}>
+        register
+      </NavLink>
+      <Jumbotron />
     </div>
   );
 }
-
 
 export default Header;
