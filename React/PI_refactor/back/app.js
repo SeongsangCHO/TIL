@@ -16,7 +16,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use("/", testAPIRouter);
-
+app.use(express.json()); //body-parser 대신사용할수있음.
 app.get("/", (req, res) => {
   res.send("hello World");
 });
@@ -25,6 +25,11 @@ app.get("/api", (req, res) => {
   res.render("../views/index", { title: "api page" });
 });
 
+
+app.post("/register", (req, res, next) => {
+  console.log(req.body);
+  res.render("../views/userRegister", {user_data: req.body});
+});
 //클릭시 처리를 어떻게 해야할까
 //https://stackoverflow.com/questions/55647287/how-to-send-request-on-click-react-hooks-way
 
