@@ -18,10 +18,15 @@ const registerReducer = (state = initialState, action) => {
       console.log("REQUEST_리듀서");
       return { ...state };
     }
-    case SIGN_UP_SUCCESS:
-      return { ...state, payload: { ...action.payload } };
-    case SIGN_UP_FAILURE:
+    case SIGN_UP_SUCCESS:{
+      console.log("SUCCESS_리듀서");
+      console.log(action.data);
+      return { ...state, data: { ...action.data } };
+    }
+    case SIGN_UP_FAILURE:{
+      console.log("FAILURE_리듀서");
       return { ...state, payload: {} };
+    }
     default:
       return state;
   }

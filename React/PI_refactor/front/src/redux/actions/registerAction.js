@@ -10,13 +10,13 @@ export function registerRequest(data) {
   console.log(data);
   return {
     type: SIGN_UP_REQUEST,
-    payload : data,
+    data : data,
   };
 }
 export function registerSuccess(data) {
   return {
     type: SIGN_UP_SUCCESS,
-    payload : data,
+    data : data,
   };
 }
 export function registerFailure(error) {

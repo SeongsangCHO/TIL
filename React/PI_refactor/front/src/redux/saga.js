@@ -24,7 +24,7 @@ const localURL = "http://localhost/register";
 // *_FAILURE 비동기 요청실패
 
 function signUpAPI(signUpData) {
-  console.log('signupAPI in saga')
+  console.log("signupAPI in saga");
   return axios.post(localURL, signUpData, {
     withCredentials: true,
   });
@@ -34,15 +34,14 @@ function* signUp(action) {
     console.log("signUp in saga");
     const result = yield call(signUpAPI, action.data);
     //signUpAPI 를 호출하고 돌아오는 데이터도 받는다.
-    console.log(result);
-    yield put({ type: SIGN_UP_SUCCESS, user_data: result.data, withCredentials: false });
+    yield put({ type: SIGN_UP_SUCCESS, user_data: action.data });
   } catch (err) {
     console.log(err);
     yield put({ type: SIGN_UP_FAILURE, user_data: err.response.data });
   }
 }
 function* watchSignUp() {
-  console.log('watch Sign UP');
+  console.log("watch Sign UP");
   yield takeEvery(SIGN_UP_REQUEST, signUp); //리듀서 감지
 }
 

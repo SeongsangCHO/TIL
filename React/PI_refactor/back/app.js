@@ -8,7 +8,10 @@ var cors = require('cors')
 const accecptURL = 'http:/localhost:3000'; 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin:"http://localhost:3000",
+  credentials: true,
+}));
 
 const port = process.env.PORT || 80;
 let testAPIRouter = require("./routes/testAPI");
@@ -30,10 +33,14 @@ app.get("/api", (req, res) => {
   res.render("../views/index", { title: "api page" });
 });
 
+//닉네임 중복체크를 post로 던져서 select, 중복체크, false리턴
+// 그 값에 따라서 alert 반환
 
 app.post("/register",  cors(accecptURL),(req, res, next) => {
+  //res.set이아닌 setHeader로 했어야함.
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   console.log(req.body);
-  res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+  //userData의 password를 bcrpt로 해싱
   res.render("../views/userRegister", {user_data: req.body});
 });
 //클릭시 처리를 어떻게 해야할까
