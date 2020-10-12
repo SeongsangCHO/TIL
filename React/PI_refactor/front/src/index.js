@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom.scss";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import configureStore from './store/store';
+import configureStore from './redux/store';
 const initialState = {};
 const store = configureStore(initialState);
 ReactDOM.render(

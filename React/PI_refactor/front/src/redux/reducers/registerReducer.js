@@ -1,14 +1,22 @@
+import {REGISTER_DATA, REGISTER_SUCCESS, REGISTER_FAIL} from '../actions/registerAction';
+
 const initialState = {
-  data: {}
+  data:{
+    user_id: "",
+    user_password: '',
+  }
 };
 
 //상태가 변화할 때 수행되는 함수
 //Type에 따른 상태변화
 const registerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_FAQ_DATA':
+    case REGISTER_DATA:
+      return {...state};
+    case REGISTER_SUCCESS:
       return { ...state, data: {...action.payload} };
-
+    case  REGISTER_FAIL :
+      return {...state, data: {}};
     default:
       return state;
   }
