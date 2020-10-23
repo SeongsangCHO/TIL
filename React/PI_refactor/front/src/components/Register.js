@@ -3,6 +3,7 @@ import Header from "./Header";
 import styled from "styled-components";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
 
 const RegisterWrapper = styled.div`
   width: 100%;
@@ -34,6 +35,8 @@ const RegisterButton = styled.button`
   background-color: lavender;
 `;
 function Register() {
+  const dispatch = useDispatch();
+
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState(false);
@@ -56,13 +59,20 @@ function Register() {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+
     if (passwordCheck == false && setPassword != "") {
       console.log("비번이 공백이거나 일치하지 않음");
       alert("비밀번호가 공백이거나 일치하지 않아요");
-      e.preventDefault();
       return false;
     }
-    return true;
+    return dispatch({
+      type: "SIGN_UP_REQUEST",
+      data: {
+        user_nickname: nickName,
+        user_password: password,
+      },
+    });
   };
   const handleNickName = (e) => {
     setNickName(e.target.value);

@@ -4,19 +4,27 @@ let ssgCrawler = require("./crawler/ssgCrawler");
 let coupangCrawler = require("./crawler/coupangCrawler");
 let multi = require("./crawler/multi");
 let cluster = require("./crawler/cluster");
+var cors = require('cors')
+const accecptURL = 'http:/localhost:3000'; 
 
 const app = express();
-const port = process.env.PORT || 80;
+app.use(cors({
+  origin:"http://localhost:3000",
+  credentials: true,
+}));
 
+const port = process.env.PORT || 80;
 let testAPIRouter = require("./routes/testAPI");
 const { start } = require("repl");
+
+
 
 //템플릿엔진 ejs 설정 __dirname +'views'랑 같음
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use("/", testAPIRouter);
-
+app.use(express.json()); //body-parser 대신사용할수있음.
 app.get("/", (req, res) => {
   res.send("hello World");
 });
@@ -25,6 +33,16 @@ app.get("/api", (req, res) => {
   res.render("../views/index", { title: "api page" });
 });
 
+//닉네임 중복체크를 post로 던져서 select, 중복체크, false리턴
+// 그 값에 따라서 alert 반환
+
+app.post("/register",  cors(accecptURL),(req, res, next) => {
+  //res.set이아닌 setHeader로 했어야함.
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  console.log(req.body);
+  //userData의 password를 bcrpt로 해싱
+  res.render("../views/userRegister", {user_data: req.body});
+});
 //클릭시 처리를 어떻게 해야할까
 //https://stackoverflow.com/questions/55647287/how-to-send-request-on-click-react-hooks-way
 
