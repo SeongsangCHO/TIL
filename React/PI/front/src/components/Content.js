@@ -174,7 +174,7 @@ function Content() {
   };
   return (
     <div className="content-wrapper">
-      <div className={classes.root}>
+        <div className="scrollbar-wrapper">
         <AppBar position="static" color="default">
           <Button type="primary">Category Add</Button>
           <Tabs
@@ -203,7 +203,9 @@ function Content() {
             <LinkCard key={idx} obj={obj} />
           </TabPanel>
         ))}
-        <Button style={{width:100+'%'}}type="primary">Link Add</Button>
+        <Button style={{ width: 100 + "%" }} type="primary">
+          Link Add
+        </Button>
       </div>
       <Sidecontent />
     </div>

@@ -40,7 +40,7 @@ app.get("/craw", (req, res) => {
   let status = "쓱 ,쿠팡 크롤러";
 
   ssgCrawler();
-  coupangCrawler();
+  // coupangCrawler();
 
   res.send("쓱, 쿠팡 크롤링 수행");
 });

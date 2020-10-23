@@ -4,7 +4,7 @@ let db = require("../config/db_config");
 const coupangCrawler = async () => {
   let start = await new Date().getTime();
   //Common part start//
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   await browser.userAgent(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
   );
@@ -69,7 +69,7 @@ const coupangCrawler = async () => {
     //1 ~ 3페이지까지 크롤링
     for (
       let pageNumber = 1;
-      pageNumber <= lastPageNumber - (lastPageNumber - 3);
+      pageNumber <= lastPageNumber - (lastPageNumber - 10);
       pageNumber++
     ) {
       if (pageNumber != 1) {
@@ -120,6 +120,7 @@ const coupangCrawler = async () => {
         //존재하지않으면 우선순위 증가하지 않도록 --
         else priority--;
       }
+      dataInsert(productData);
     }
   } catch (error) {
     console.error(error);
@@ -133,4 +134,19 @@ const coupangCrawler = async () => {
   await page.close(); // 페이지 닫기
   await browser.close(); // 브라우저 닫기
 };
+
+
+function dataInsert(crawlerData) {
+  crawlerData.forEach((obj) => {
+    db.query(
+      `INSERT INTO product(title, price, link, priority)
+    VALUES(?,?,?,?)`,
+      [obj.title, obj.price, obj.link, obj.priority],
+      function (error, result) {
+        if (error) console.error(error);
+      }
+    );
+  });
+}
+
 module.exports = coupangCrawler;
