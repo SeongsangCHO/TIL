@@ -17,17 +17,28 @@ let arrow = {
   name : "arrow",
   whoAmI :  () => {
     console.log(this);
+    setTimeout(function() {
+      console.log(this);
+    }, 1000);
   }
 }
 
-
+function Person() {
+  this.age = 0;
+  setInterval(() => {
+    this.age++;
+    console.log(this.age);
+  },1000);
+}
 // someone. <-함수가 호출한 직접적인 부분이므로 this = 자신이 됨
-someone.whoAmI();
+// someone.whoAmI();
 arrow.whoAmI();
+
+let p = new Person();
 
 let myWhoAmI = someone.whoAmI;
 // myWhoAmI는 window에 있어서 this -> window가 됨
-myWhoAmI(); // window가 나옴 : 호출하는 방법이 달라졌기 때문
+// myWhoAmI(); // window가 나옴 : 호출하는 방법이 달라졌기 때문
 
 
 let bindedWhoAmI = myWhoAmI.bind(someone);
