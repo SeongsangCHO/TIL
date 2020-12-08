@@ -6,6 +6,13 @@
 호출과 무관하게 고정할 수 있는 것이 bind 메소드
 */
 
+let sometwo = {
+  name : "kukim",
+  whoAmI : function(){
+    console.log(this);
+  }
+}
+
 let someone = {
   name : "secho",
   whoAmI : function (){
