@@ -48,10 +48,12 @@ let myWhoAmI = someone.whoAmI;
 // myWhoAmI(); // window가 나옴 : 호출하는 방법이 달라졌기 때문
 
 
+
+//바인드시키면 누가 호출했든 고정되어버림
 let bindedWhoAmI = myWhoAmI.bind(someone);
 
 
-/*
+/* <- 바인드 되었기 때문에 btn객체가 함수를 호출해도 이 함수의 this는 someone.
 btn.addEventListener('click', bindedWhoAmI);
 -> someone객체가 this가 됨. 
 bind는 호출하는 방법이 어떻게 되었든 bind로 묶인 애가 this가 됨
