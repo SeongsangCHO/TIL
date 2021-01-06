@@ -143,6 +143,65 @@ new Modal(document.querySelector("#App"));
 
 
 
+
+
+### none을 애니메이션으로 fade in ,out 구현
+
+```js
+show() {
+    this.$modalBg.style.display = "block";
+    this.$modalWindow.style.display = "block";
+    this.$modalBg.classList.add("appear");
+    this.$modalBg.classList.remove("disappear");
+  }
+  hide() {
+    this.$modalBg.style.display = "none";
+    this.$modalWindow.style.display = "none";
+  }
+  bindEvent() {
+    this.$modalBtn.addEventListener("click", (e) => {
+      this.show();
+    });
+    this.$modalClose.addEventListener("click", (e) => {
+      let thisScope = this;
+      this.$modalBg.classList.add("disappear");
+
+      setTimeout(function () {
+        thisScope.$modalBg.classList.remove("appear");
+        thisScope.hide();
+      }, 1001);
+    });
+    window.addEventListener("click", (e) => {
+      if (e.target == this.$modalBg) {
+        let thisScope = this;
+
+        this.$modalBg.classList.add("disappear");
+        setTimeout(function () {
+          thisScope.$modalBg.classList.remove("appear");
+          thisScope.hide();
+        }, 1001);
+      }
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.keyCode == 27 && this.$modalBg.style.display === "block") {
+        this.$modalBg.classList.add("disappear");
+        setTimeout(function () {
+          thisScope.$modalBg.classList.remove("appear");
+          thisScope.hide();
+        }, 1001);
+      }
+    });
+  }
+```
+
+애니메이션으로 1초간 opacity 0 => 1로 하고
+
+fade-out시엔 1초 딜레이(1 -> 0으로 될 때까지)시킨 후 appear클래스를 제거하는 방식으로 구현
+
+
+
+
+
 ### z- index, opacity
 
 
