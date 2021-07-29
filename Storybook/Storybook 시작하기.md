@@ -140,3 +140,113 @@ backgroundColor 속성에 대한 argType을 선언해 storybook에서 색을 변
 
 <img width="967" alt="스크린샷 2021-03-23 오전 12 09 16" src="https://user-images.githubusercontent.com/55486644/112011855-031ea180-8b6c-11eb-97a3-653b37474a2a.png">
 
+
+
+
+
+### args
+
+props를 정의해서 마스터 템플릿에 해당 값들을 전달해 코드의 양을 줄일 수 있다.
+
+`Template.bind({})`로 함수의 복사본을 만들 수 있다.
+
+
+
+`const Template: Story<MyButtonProps> = (args) => <MyButton {...args} />;`
+
+과 같이 컴포넌트를 템플릿화한 다음,
+
+```js
+export const Primary = Template.bind({});
+Primary.args = {
+  primary: true,
+  label: 'isLabel',
+  variant: 'primary',
+};
+```
+
+Primary이름의 args를 선언해 템플릿에 인자만 전달함으로써 재사용을 할 수 있다.
+
+
+
+### Parameters
+
+파라미터를 사용해서 배경색 등을 선택할 수 있다.
+
+```js
+export default {
+  title: 'Button',
+  component: Button,
+  //👇 Creates specific parameters for the story
+  parameters: {
+    backgrounds: {
+      values: [
+        { name: 'red', value: '#f00' },
+        { name: 'green', value: '#0f0' },
+        { name: 'blue', value: '#00f' },
+      ],
+    },
+  },
+} as Meta;
+```
+
+
+
+### decorators
+
+컴포넌트를 래핑하는 메커니즘으로 사용된다.
+
+스토리를 어느위치에 랜더링하고자 할 때 래핑해서 사용한다.
+
+```js
+export default {
+  title: 'Button',
+  component: Button,
+  decorators: [
+    (Story) => (
+      <div style={{ margin: '3em' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+```
+
+
+
+
+
+### 2개 이상의 컴포넌트의 스토리들
+
+```js
+// List.stories.tsx
+
+import React from 'react';
+
+import { Story, Meta } from '@storybook/react';
+
+import { List, ListProps } from './List';
+import { ListItem, ListItemProps } from './ListItem';
+
+export default {
+  component: List,
+  title: 'List',
+} as Meta;
+
+export const Empty: Story<ListProps> = (args) => <List {...args} />;
+
+export const OneItem = (args) => (
+  <List {...args}>
+    <ListItem />
+  </List>
+);
+
+export const ManyItems = (args) => (
+  <List {...args}>
+    <ListItem />
+    <ListItem />
+    <ListItem />
+  </List>
+);
+```
+
